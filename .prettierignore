@@ -1,0 +1,8 @@
+build
+coverage
+.idea
+public
+*.cjs
+*.json
+node_modules
+vite.config.ts
