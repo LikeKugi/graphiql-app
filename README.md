@@ -34,12 +34,12 @@ Your app must contain:
 1. Welcome page
 2. User auth
 3. GraphiQL page with:
-    - request editor (query editor / JSON viewer)
-    - variables editor
-    - headers editor
-    - documentation explorer (should be lazy-loaded)
-    - response section (query editor / JSON viewer)
-    - possibility to change to a different user-specified API endpoint
+   - request editor (query editor / JSON viewer)
+   - variables editor
+   - headers editor
+   - documentation explorer (should be lazy-loaded)
+   - response section (query editor / JSON viewer)
+   - possibility to change to a different user-specified API endpoint
 
 ## Repository requirements
 
