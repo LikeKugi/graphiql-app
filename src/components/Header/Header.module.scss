@@ -1,0 +1,31 @@
+@import '@/styles/colors.scss';
+
+.header {
+  position: absolute;
+  inline-size: 100%;
+  block-size: 60px;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  padding-block: 15px;
+  background-color: $color-grey-light;
+  transition: all 0.4s ease-in-out;
+}
+
+.header_sticky {
+  background-color: $color-grey-medium;
+  position: fixed;
+  padding-block: 5px;
+}
+
+.header__wrapper {
+  margin-inline: auto;
+  max-inline-size: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__buttons {
+  display: flex;
+  align-items: center;
+}
