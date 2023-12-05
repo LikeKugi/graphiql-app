@@ -1,0 +1,15 @@
+.footer {
+  inline-size: 100%;
+  padding-block-start: 5px;
+
+  background-color: aqua;
+}
+
+.footer__wrapper {
+  padding-inline: 10px;
+}
+
+.footer__links {
+  display: flex;
+  column-gap: 20px;
+}

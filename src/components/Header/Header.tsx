@@ -1,6 +1,7 @@
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import styles from './Header.module.scss';
 import { RouterConstants } from '@/constants/routes';
 import {
@@ -30,7 +31,7 @@ const textLang = {
 
 const Header = () => {
   const { lang } = useAppSelector((state) => state.lang);
-  const [scrollPos, setScrollPos] = useState(0);
+  const [isStycky, setIsSticky] = useState(false);
   const dispatch = useAppDispatch();
 
   const currentText = textLang[lang];
@@ -38,7 +39,7 @@ const Header = () => {
 
   const handleScroll = () => {
     const pos = window.scrollY;
-    setScrollPos(pos);
+    setIsSticky(pos > 0);
   };
 
   const handleSelect = (e: SelectChangeEvent) => {
@@ -53,12 +54,15 @@ const Header = () => {
   }, []);
 
   return (
-    <header
-      className={classNames(styles.header, {
-        [styles.header_sticky]: scrollPos > 0,
-      })}
+    <AppBar
+      color={isStycky ? 'primary' : 'transparent'}
+      position={isStycky ? 'fixed' : 'absolute'}
+      sx={{
+        paddingBlock: `${isStycky ? '5px' : '15px'}`,
+        transition: 'all 0.4s ease-in-out',
+      }}
     >
-      <div className={styles.header__wrapper}>
+      <Toolbar className={styles.header__wrapper}>
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel id="lang-select-label">{currentText.label}</InputLabel>
           <Select
@@ -83,8 +87,8 @@ const Header = () => {
             </Link>
           )}
         </div>
-      </div>
-    </header>
+      </Toolbar>
+    </AppBar>
   );
 };
 
