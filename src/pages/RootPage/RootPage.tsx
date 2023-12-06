@@ -7,10 +7,7 @@ const RootPage = (): JSX.Element => {
   return (
     <>
       <Header />
-      <main>
-        <p>content</p>
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
     </>
   );

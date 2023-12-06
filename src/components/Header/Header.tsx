@@ -15,26 +15,14 @@ import {
 import { LanguegeConstant } from '@/constants/languege/languege.constant';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { setLang } from '@/store/reducers/langSlice';
-
-const textLang = {
-  en: {
-    label: 'Languege',
-    homeLink: 'Home',
-    outLink: 'Sign out',
-  },
-  ru: {
-    label: 'Язык',
-    homeLink: 'Домой',
-    outLink: 'Выйти',
-  },
-};
+import { textHeader } from './text';
 
 const Header = () => {
   const { lang } = useAppSelector((state) => state.lang);
   const [isStycky, setIsSticky] = useState(false);
   const dispatch = useAppDispatch();
 
-  const currentText = textLang[lang];
+  const currentText = textHeader[lang];
   const isAuth = true;
 
   const handleScroll = () => {
@@ -60,6 +48,7 @@ const Header = () => {
       sx={{
         paddingBlock: `${isStycky ? '5px' : '15px'}`,
         transition: 'all 0.4s ease-in-out',
+        zIndex: '100',
       }}
     >
       <Toolbar className={styles.header__wrapper}>
