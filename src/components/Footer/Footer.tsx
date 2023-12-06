@@ -27,13 +27,8 @@ const Footer = () => {
 
           <Grid className={styles.footer__links} item>
             {ghList.map((dev, i) => (
-              <Grid item key={i}>
-                <Link
-                  href={dev.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  fontSize={22}
-                >
+              <Grid item key={i} className={styles.footer__link}>
+                <Link href={dev.href} target="_blank" rel="noopener noreferrer">
                   {dev.name}
                 </Link>
               </Grid>

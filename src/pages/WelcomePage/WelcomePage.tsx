@@ -10,7 +10,7 @@ const WelcomePage = (): JSX.Element => {
   const { lang } = useAppSelector((state) => state.lang);
   const currentText = welcomeText[lang];
 
-  const isAuth = true;
+  const isAuth = false;
 
   return (
     <main className={styles.welcome}>

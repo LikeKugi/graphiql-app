@@ -13,6 +13,7 @@ import SignInPage from '@/pages/SignInPage/SignInPage';
 import SignUpPage from '@/pages/SignUpPage/SignUpPage';
 import PrivateRoutes from '@/routes/PrivateRoutes/PrivateRoutes';
 import MainPage from '@/pages/MainPage/MainPage';
+import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const routes = createBrowserRouter(
       <Route element={<PrivateRoutes />}>
         <Route path={RouterConstants.MAIN} element={<MainPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />,
     </Route>,
   ),
 );
