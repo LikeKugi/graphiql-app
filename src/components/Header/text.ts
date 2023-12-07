@@ -1,6 +1,6 @@
 export const textHeader = {
   en: {
-    label: 'Languege',
+    label: 'language',
     homeLink: 'Home',
     outLink: 'Sign out',
   },

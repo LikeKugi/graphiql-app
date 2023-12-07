@@ -12,14 +12,14 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { LanguegeConstant } from '@/constants/languege/languege.constant';
+import { languageConstant } from '@/constants/language/language.constant';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { setLang } from '@/store/reducers/langSlice';
 import { textHeader } from './text';
 
 const Header = () => {
   const { lang } = useAppSelector((state) => state.lang);
-  const [isStycky, setIsSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
   const dispatch = useAppDispatch();
 
   const currentText = textHeader[lang];
@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   const handleSelect = (e: SelectChangeEvent) => {
-    dispatch(setLang(e.target.value as LanguegeConstant));
+    dispatch(setLang(e.target.value as languageConstant));
   };
 
   useEffect(() => {
@@ -43,10 +43,10 @@ const Header = () => {
 
   return (
     <AppBar
-      color={isStycky ? 'primary' : 'transparent'}
-      position={isStycky ? 'fixed' : 'absolute'}
+      color={isSticky ? 'primary' : 'transparent'}
+      position={isSticky ? 'fixed' : 'absolute'}
       sx={{
-        paddingBlock: `${isStycky ? '5px' : '15px'}`,
+        paddingBlock: `${isSticky ? '5px' : '15px'}`,
         transition: 'all 0.4s ease-in-out',
         zIndex: '100',
       }}
@@ -59,10 +59,10 @@ const Header = () => {
             id="lang-select"
             labelId="lang-select-label"
             value={lang}
-            label="Languege"
+            label="language"
           >
-            <MenuItem value={LanguegeConstant.EN}>English</MenuItem>
-            <MenuItem value={LanguegeConstant.RU}>Русский</MenuItem>
+            <MenuItem value={languageConstant.EN}>English</MenuItem>
+            <MenuItem value={languageConstant.RU}>Русский</MenuItem>
           </Select>
         </FormControl>
 

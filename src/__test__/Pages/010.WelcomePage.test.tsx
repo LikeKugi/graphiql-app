@@ -2,7 +2,7 @@ import { describe } from 'vitest';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import WelcomePage from '@/pages/WelcomePage/WelcomePage';
 import { MemoryRouter } from 'react-router-dom';
-import { LanguegeConstant } from '@/constants/languege/languege.constant';
+import { languageConstant } from '@/constants/language/language.constant';
 import { screen } from '@testing-library/react';
 
 describe('test WelcomePage', () => {
@@ -12,7 +12,7 @@ describe('test WelcomePage', () => {
         <WelcomePage />
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: LanguegeConstant.EN } },
+        preloadedState: { lang: { lang: languageConstant.EN } },
       },
     );
 
@@ -27,7 +27,7 @@ describe('test WelcomePage', () => {
         <WelcomePage />
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: LanguegeConstant.RU } },
+        preloadedState: { lang: { lang: languageConstant.RU } },
       },
     );
 

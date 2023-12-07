@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { act, screen } from '@testing-library/react';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import Header from '@/components/Header/Header';
-import { LanguegeConstant } from '@/constants/languege/languege.constant';
+import { languageConstant } from '@/constants/language/language.constant';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -13,11 +13,11 @@ describe('test Header component', () => {
         <Header />
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: LanguegeConstant.EN } },
+        preloadedState: { lang: { lang: languageConstant.EN } },
       },
     );
 
-    expect(screen.getAllByText(/Languege/i)).toHaveLength(2);
+    expect(screen.getAllByText(/language/i)).toHaveLength(2);
     expect(screen.getByText(/English/i)).toBeInTheDocument();
     expect(screen.getByText(/Home/i)).toBeInTheDocument();
     expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('test Header component', () => {
         <Header />
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: LanguegeConstant.RU } },
+        preloadedState: { lang: { lang: languageConstant.RU } },
       },
     );
 
@@ -39,13 +39,13 @@ describe('test Header component', () => {
     expect(screen.getByText(/Выйти/i)).toBeInTheDocument();
   });
 
-  test('should change languege', async () => {
+  test('should change language', async () => {
     renderWithProviders(
       <MemoryRouter>
         <Header />
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: LanguegeConstant.EN } },
+        preloadedState: { lang: { lang: languageConstant.EN } },
       },
     );
 
