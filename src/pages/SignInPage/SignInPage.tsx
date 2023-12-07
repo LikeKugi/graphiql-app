@@ -13,49 +13,49 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, logInWithEmailAndPassword } from '@/lib/firebase';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  password: yup.string().required('Password is required'),
+});
 
 const SignInPage = (): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (email || password) setErrorMessage('');
-  }, [email, password]);
+  const { handleSubmit, control, watch } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (error) console.log(error);
     if (user) navigate('/');
   }, [user, error, navigate]);
 
-  const isValidEmail = (email: string): boolean => {
-    // Simple email validation using a regular expression
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  const watchedFields = watch(); // Watch all fields
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    setErrorMessage('');
+  }, [watchedFields.email, watchedFields.password]);
 
+  interface ISignInFormData {
+    email: string;
+    password: string;
+  }
+
+  async function handleFormSubmit(data: ISignInFormData) {
+    console.log(data);
+    const { email, password } = data;
     try {
-      if (!email) {
-        setErrorMessage('Please, enter your email');
-        return;
-      }
+      setErrorMessage('');
 
-      if (!isValidEmail(email)) {
-        setErrorMessage('Invalid email address');
-        return;
-      }
-
-      if (!password) {
-        setErrorMessage('Please, enter your password');
-        return;
-      }
-
-      // Form submission results from Firebase
       const { success, userID, error } = await logInWithEmailAndPassword(
         email,
         password,
@@ -67,10 +67,9 @@ const SignInPage = (): JSX.Element => {
         setErrorMessage(error);
       }
     } catch (error) {
-      console.log(error);
       setErrorMessage('An error occurred. Please try again.');
     }
-  };
+  }
 
   return (
     <Container
@@ -100,33 +99,57 @@ const SignInPage = (): JSX.Element => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit((data) => handleFormSubmit(data))}
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
+            <Controller
               name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              control={control}
+              defaultValue=""
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  error={!!error}
+                  value={value}
+                  helperText={error ? error.message : ''}
+                  onChange={onChange}
+                />
+              )}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
+            <Controller
               name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              control={control}
+              defaultValue=""
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  error={!!error}
+                  value={value}
+                  helperText={error ? error.message : ''}
+                  onChange={onChange}
+                />
+              )}
             />
 
             <Button

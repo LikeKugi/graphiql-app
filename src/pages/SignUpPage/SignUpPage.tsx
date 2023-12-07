@@ -14,74 +14,73 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import * as yup from 'yup';
+import { Controller, useForm } from 'react-hook-form';
+
+const schema = yup.object().shape({
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
+  email: yup
+    .string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Password must be at least 8 characters, and include one letter, one digit, and one special character',
+    ),
+});
 
 const SignUpPage = (): JSX.Element => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const { handleSubmit, control, watch } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [user, loading, error] = useAuthState(auth);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
+  const watchedFields = watch(); // Watch all fields
+
   useEffect(() => {
-    if (firstName || lastName || email || password) setErrorMessage('');
-  }, [firstName, lastName, email, password]);
+    setErrorMessage('');
+  }, [
+    watchedFields.firstName,
+    watchedFields.lastName,
+    watchedFields.email,
+    watchedFields.password,
+  ]);
 
-  const isStrongPassword = (password: string): boolean => {
-    // Minimum 8 characters, at least one letter, one digit, one special character
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    return passwordRegex.test(password);
-  };
+  interface ISignUpFormData {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }
 
-  const isValidEmail = (email: string): boolean => {
-    // Simple email validation using a regular expression
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  async function handleFormSubmit(data: ISignUpFormData) {
+    console.log(data);
+    const { firstName, lastName, email, password } = data;
     try {
-      if (!firstName || !lastName) {
-        setErrorMessage('Please, enter your full name');
-        return;
-      }
-
-      if (!isValidEmail(email)) {
-        setErrorMessage('Invalid email address');
-        return;
-      }
-
-      if (!isStrongPassword(password)) {
-        setErrorMessage(
-          'Password must be at least 8 characters long and contain at least one letter, one digit, and one special character.',
-        );
-        return;
-      }
-
       const name = `${firstName} ${lastName}`;
 
-      const { success, error } = await registerWithEmailAndPassword(
-        name,
-        email,
-        password,
-      );
-
+      const { success, error: signUpError } =
+        await registerWithEmailAndPassword(name, email, password);
       if (success) {
         console.log('success');
       } else {
-        setErrorMessage(error);
+        console.log(signUpError);
+        setErrorMessage(signUpError);
       }
     } catch (err) {
       console.log(err);
-      setErrorMessage('Validation error. Please check your inputs.');
     }
-  };
+  }
 
   useEffect(() => {
     if (error) console.log(error);
@@ -112,58 +111,108 @@ const SignUpPage = (): JSX.Element => {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit((data) => handleFormSubmit(data))}
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="given-name"
+                  <Controller
                     name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    autoFocus
+                    control={control}
+                    defaultValue=""
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <TextField
+                        autoComplete="given-name"
+                        name="firstName"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="First Name"
+                        autoFocus
+                        error={!!error}
+                        value={value}
+                        helperText={error ? error.message : ''}
+                        onChange={onChange}
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
+                  <Controller
                     name="lastName"
-                    autoComplete="family-name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    control={control}
+                    defaultValue=""
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <TextField
+                        autoComplete="family-name"
+                        name="lastName"
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="Last Name"
+                        error={!!error}
+                        value={value}
+                        helperText={error ? error.message : ''}
+                        onChange={onChange}
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
+                  <Controller
                     name="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    control={control}
+                    defaultValue=""
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        error={!!error}
+                        value={value}
+                        helperText={error ? error.message : ''}
+                        onChange={onChange}
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
+                  <Controller
                     name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    control={control}
+                    defaultValue=""
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        error={!!error}
+                        value={value}
+                        helperText={error ? error.message : ''}
+                        onChange={onChange}
+                      />
+                    )}
                   />
                 </Grid>
               </Grid>
