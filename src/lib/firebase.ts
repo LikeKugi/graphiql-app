@@ -27,9 +27,16 @@ const db = getFirestore(app);
 
 const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    console.error(err);
+    const response = await signInWithEmailAndPassword(auth, email, password);
+    return { success: true, userID: response?.user?.uid, error: '' };
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err);
+      return { success: false, error: err.message };
+    } else {
+      console.error(err);
+      return { success: false, error: 'An unknown error occurred' };
+    }
   }
 };
 

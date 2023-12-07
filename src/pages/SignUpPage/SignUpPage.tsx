@@ -44,7 +44,7 @@ const SignUpPage = (): JSX.Element => {
   useEffect(() => {
     if (loading) return;
     if (error) console.log(error);
-    if (user) navigate('/');
+    // if (user) navigate('/');
   }, [user, loading, error, navigate]);
 
   return (
