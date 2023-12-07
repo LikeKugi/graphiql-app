@@ -22,32 +22,53 @@ const SignInPage = (): JSX.Element => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (email || password) {
-      setErrorMessage('');
-    }
+    if (email || password) setErrorMessage('');
   }, [email, password]);
 
   useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-
+    if (error) console.log(error);
     if (user) navigate('/');
   }, [user, error, navigate]);
+
+  const isValidEmail = (email: string): boolean => {
+    // Simple email validation using a regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { success, userID, error } = await logInWithEmailAndPassword(
-      email,
-      password,
-    );
+    try {
+      if (!email) {
+        setErrorMessage('Please, enter your email');
+        return;
+      }
 
-    if (success) {
-      console.log(userID);
-    } else {
-      setErrorMessage(error);
-      return;
+      if (!isValidEmail(email)) {
+        setErrorMessage('Invalid email address');
+        return;
+      }
+
+      if (!password) {
+        setErrorMessage('Please, enter your password');
+        return;
+      }
+
+      // Form submission results from Firebase
+      const { success, userID, error } = await logInWithEmailAndPassword(
+        email,
+        password,
+      );
+
+      if (success) {
+        console.log(userID);
+      } else {
+        setErrorMessage(error);
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('An error occurred. Please try again.');
     }
   };
 

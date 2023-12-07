@@ -54,8 +54,15 @@ const registerWithEmailAndPassword = async (
       authProvider: 'local',
       email,
     });
-  } catch (err) {
-    console.error(err);
+    return { success: true, error: '' };
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err);
+      return { success: false, error: err.message };
+    } else {
+      console.error(err);
+      return { success: false, error: 'An unknown error occurred' };
+    }
   }
 };
 
