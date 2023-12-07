@@ -56,15 +56,16 @@ const SignInPage = (): JSX.Element => {
     try {
       setErrorMessage('');
 
-      const { success, userID, error } = await logInWithEmailAndPassword(
-        email,
-        password,
-      );
+      const {
+        success,
+        userID,
+        error: loginError,
+      } = await logInWithEmailAndPassword(email, password);
 
       if (success) {
         console.log(userID);
       } else {
-        setErrorMessage(error);
+        setErrorMessage(loginError);
       }
     } catch (error) {
       setErrorMessage('An error occurred. Please try again.');
