@@ -27,11 +27,11 @@ const Footer = () => {
 
           <Grid className={styles.footer__links} item>
             {ghList.map((dev, i) => (
-              <Grid item key={i} className={styles.footer__link}>
+              <Box key={i} className={styles.footer__link}>
                 <Link href={dev.href} target="_blank" rel="noopener noreferrer">
                   {dev.name}
                 </Link>
-              </Grid>
+              </Box>
             ))}
           </Grid>
 
