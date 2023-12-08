@@ -12,12 +12,12 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyA7aZD2xdYz0Q_rMaPHSmuB2jmc9BZD7g4',
-  authDomain: 'graphiql-app-8eced.firebaseapp.com',
-  projectId: 'graphiql-app-8eced',
-  storageBucket: 'graphiql-app-8eced.appspot.com',
-  messagingSenderId: '218521179630',
-  appId: '1:218521179630:web:2edf146e572007ae296aff',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
