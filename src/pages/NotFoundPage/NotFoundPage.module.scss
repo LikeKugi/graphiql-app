@@ -1,0 +1,16 @@
+.notFound__wrapper {
+  padding-block-start: 200px;
+}
+
+.notFound__img {
+  max-block-size: 200px;
+  max-inline-size: 200px;
+  margin-inline: auto;
+  margin-block-end: 50px;
+}
+
+.notFound__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
