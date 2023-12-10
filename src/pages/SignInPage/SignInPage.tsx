@@ -2,7 +2,6 @@ import { useEffect, useState, JSX } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -17,6 +16,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as yup from 'yup';
+import { Stack } from '@mui/material';
 
 const schema = yup.object().shape({
   email: yup
@@ -30,20 +30,15 @@ const SignInPage = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState('');
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-  const { handleSubmit, control, watch } = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
   useEffect(() => {
     if (error) console.log(error);
     if (user) navigate('/');
   }, [user, error, navigate]);
-
-  const watchedFields = watch(); // Watch all fields
-
-  useEffect(() => {
-    setErrorMessage('');
-  }, [watchedFields.email, watchedFields.password]);
 
   interface ISignInFormData {
     email: string;
@@ -73,25 +68,11 @@ const SignInPage = (): JSX.Element => {
   }
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{
-        margin: '100px 0',
-      }}
-    >
-      <CssBaseline />
+    <Container component="main" maxWidth="xs">
       {loading && <CircularProgress />}
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       {!loading && !error && (
-        <Box
-          sx={{
-            marginTop: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <Stack alignItems={'center'} pt={4} spacing={2}>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -173,7 +154,7 @@ const SignInPage = (): JSX.Element => {
               </Grid>
             </Grid>
           </Box>
-        </Box>
+        </Stack>
       )}
     </Container>
   );
