@@ -13,7 +13,7 @@ const WelcomePage = (): JSX.Element => {
   const isAuth = false;
 
   return (
-    <main className={styles.welcome}>
+    <Box component={'main'} className={styles.welcome}>
       <Container className={styles.welcome__wrapper} fixed>
         <Box className={styles.welcome__links}>
           <Typography textAlign="center" variant="h6">
@@ -41,7 +41,7 @@ const WelcomePage = (): JSX.Element => {
           </Box>
         </Box>
       </Container>
-    </main>
+    </Box>
   );
 };
 export default WelcomePage;
