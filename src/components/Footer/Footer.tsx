@@ -6,7 +6,7 @@ import { ghList } from './gh-list';
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <Box component={'footer'} className={styles.footer}>
       <Box className={styles.footer__wrapper}>
         <Grid
           container
@@ -40,7 +40,7 @@ const Footer = () => {
           </Grid>
         </Grid>
       </Box>
-    </footer>
+    </Box>
   );
 };
 export default Footer;
