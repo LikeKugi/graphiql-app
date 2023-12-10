@@ -71,6 +71,7 @@ const Header = () => {
         <div className={styles.header__buttons}>
           <Button
             variant="text"
+            color="inherit"
             onClick={() => navigate(RouterConstants.INDEX)}
           >
             {currentText.homeLink}
@@ -78,6 +79,7 @@ const Header = () => {
           {isAuth && (
             <Button
               variant="outlined"
+              color="inherit"
               onClick={() => navigate(RouterConstants.INDEX)}
             >
               {currentText.outLink}
