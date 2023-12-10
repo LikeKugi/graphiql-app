@@ -142,14 +142,11 @@ const SignInPage = (): JSX.Element => {
             >
               Sign In
             </Button>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
+            <Grid container justifyContent="center" spacing={2}>
               <Grid item>
                 <Typography component="p">Don't have an account?</Typography>
+              </Grid>
+              <Grid item>
                 <Link to="/signup">{'Sign Up'}</Link>
               </Grid>
             </Grid>
