@@ -77,7 +77,7 @@ const SignInPage = (): JSX.Element => {
       component="main"
       maxWidth="xs"
       sx={{
-        margin: '100px 0',
+        margin: '100px auto',
       }}
     >
       <CssBaseline />

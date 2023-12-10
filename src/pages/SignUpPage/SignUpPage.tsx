@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout, registerWithEmailAndPassword } from '@/lib/firebase';
+import { auth, registerWithEmailAndPassword } from '@/lib/firebase';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -18,6 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
+import PasswordMeterInput from '@/components/PasswordMeter/PasswordMeter';
 
 const schema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
@@ -66,6 +67,7 @@ const SignUpPage = (): JSX.Element => {
   async function handleFormSubmit(data: ISignUpFormData) {
     console.log(data);
     const { firstName, lastName, email, password } = data;
+
     try {
       const name = `${firstName} ${lastName}`;
 
@@ -214,6 +216,9 @@ const SignUpPage = (): JSX.Element => {
                       />
                     )}
                   />
+                  <PasswordMeterInput
+                    value={watchedFields.password ? watchedFields.password : ''}
+                  />
                 </Grid>
               </Grid>
               <Button
@@ -234,7 +239,6 @@ const SignUpPage = (): JSX.Element => {
               </Grid>
             </Box>
           </Box>
-          <Button onClick={logout}>Log out</Button>
         </>
       )}
     </Container>

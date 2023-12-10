@@ -16,6 +16,7 @@ import { languageConstant } from '@/constants/language/language.constant';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { setLang } from '@/store/reducers/langSlice';
 import { textHeader } from './text';
+import { logout } from '@/lib/firebase';
 
 const Header = () => {
   const { lang } = useAppSelector((state) => state.lang);
@@ -72,7 +73,9 @@ const Header = () => {
           </Link>
           {isAuth && (
             <Link to={RouterConstants.INDEX}>
-              <Button variant="outlined">{currentText.outLink}</Button>
+              <Button variant="outlined" onClick={logout}>
+                {currentText.outLink}
+              </Button>
             </Link>
           )}
         </div>
