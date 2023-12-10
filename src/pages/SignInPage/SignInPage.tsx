@@ -1,5 +1,5 @@
 import { useEffect, useState, JSX } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as yup from 'yup';
 import { Stack } from '@mui/material';
+import { RouterConstants } from '@/constants/routes';
 
 const schema = yup.object().shape({
   email: yup
@@ -37,8 +38,11 @@ const SignInPage = (): JSX.Element => {
 
   useEffect(() => {
     if (error) console.log(error);
-    if (user) navigate('/');
-  }, [user, error, navigate]);
+  }, [error, navigate]);
+
+  if (user && !user.isAnonymous) {
+    return <Navigate to={RouterConstants.INDEX} />;
+  }
 
   interface ISignInFormData {
     email: string;

@@ -75,7 +75,7 @@ const SignUpPage = (): JSX.Element => {
 
   useEffect(() => {
     if (error) console.log(error);
-  }, [user, error, navigate]);
+  }, [error, navigate]);
 
   if (user && !user.isAnonymous) {
     return <Navigate to={RouterConstants.INDEX} />;
