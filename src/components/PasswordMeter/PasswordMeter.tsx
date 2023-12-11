@@ -12,15 +12,17 @@ export default function PasswordMeterInput({ value }: { value: string }) {
   console.log(passwordLevel);
   const maximum = 4;
 
+  const { bg, bgBar } = getPasswordBarColors(strength);
+
   return (
     <>
       <LinearProgress
         variant="determinate"
         value={passwordLevel ? (passwordLevel / maximum) * 100 : 0}
         sx={{
-          backgroundColor: getPasswordBarColors(strength).bg,
+          backgroundColor: bg,
           '& .MuiLinearProgress-bar': {
-            backgroundColor: getPasswordBarColors(strength).bgBar,
+            backgroundColor: bgBar,
           },
         }}
       />
