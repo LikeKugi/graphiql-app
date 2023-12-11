@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useId, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { RouterConstants } from '@/constants/routes';
 import {
@@ -22,6 +22,8 @@ const Header = () => {
   const { lang } = useAppSelector((state) => state.lang);
   const [isSticky, setIsSticky] = useState(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const selectId = useId();
 
   const currentText = textHeader[lang];
   const isAuth = true;
@@ -44,21 +46,21 @@ const Header = () => {
 
   return (
     <AppBar
+      className={styles.header}
       color={isSticky ? 'primary' : 'transparent'}
-      position={isSticky ? 'fixed' : 'absolute'}
+      position={'sticky'}
       sx={{
         paddingBlock: `${isSticky ? '5px' : '15px'}`,
         transition: 'all 0.4s ease-in-out',
-        zIndex: '100',
       }}
     >
       <Toolbar className={styles.header__wrapper}>
         <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel id="lang-select-label">{currentText.label}</InputLabel>
+          <InputLabel id={`${selectId}-label`}>{currentText.label}</InputLabel>
           <Select
             onChange={handleSelect}
-            id="lang-select"
-            labelId="lang-select-label"
+            id={selectId}
+            labelId={`${selectId}-label`}
             value={lang}
             label="language"
           >
@@ -68,15 +70,18 @@ const Header = () => {
         </FormControl>
 
         <div className={styles.header__buttons}>
-          <Link to={RouterConstants.INDEX}>
-            <Button variant="text">{currentText.homeLink}</Button>
-          </Link>
+          <Button
+            variant="text"
+            color="inherit"
+            onClick={() => navigate(RouterConstants.INDEX)}
+          >
+            {currentText.homeLink}
+          </Button>
           {isAuth && (
-            <Link to={RouterConstants.INDEX}>
-              <Button variant="outlined" onClick={logout}>
-                {currentText.outLink}
-              </Button>
-            </Link>
+            <Button variant="outlined" color="inherit" onClick={() => logout()}>
+              {currentText.outLink}
+            </Button>
+
           )}
         </div>
       </Toolbar>

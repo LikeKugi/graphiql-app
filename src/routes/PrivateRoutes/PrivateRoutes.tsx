@@ -1,11 +1,13 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { RouterConstants } from '@/constants/routes';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/lib/firebase';
 
 const PrivateRoutes = (): JSX.Element => {
-  const [isLoggedIn] = useState(true);
+  const [user] = useAuthState(auth);
 
-  if (!isLoggedIn) {
+  if (!user || user.isAnonymous) {
     return <Navigate to={RouterConstants.INDEX} />;
   }
 
