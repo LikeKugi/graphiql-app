@@ -1,18 +1,16 @@
 import { LinearProgress, Typography } from '@mui/material';
 import {
   getPasswordStrengthLevel,
-  getPasswordBarColors,
-  getPasswordTextColor,
+  getPasswordColors,
   testPasswordStrength,
 } from './password';
 
 export default function PasswordMeterInput({ value }: { value: string }) {
   const strength = testPasswordStrength(value);
   const passwordLevel = getPasswordStrengthLevel(strength);
-  console.log(passwordLevel);
   const maximum = 4;
 
-  const { bg, bgBar } = getPasswordBarColors(strength);
+  const { bg, bgBar, text } = getPasswordColors(strength);
 
   return (
     <>
@@ -30,7 +28,7 @@ export default function PasswordMeterInput({ value }: { value: string }) {
       <Typography
         sx={{
           alignSelf: 'flex-end',
-          color: getPasswordTextColor(strength),
+          color: text,
           fontSize: '0.8rem',
           textAlign: 'right',
         }}

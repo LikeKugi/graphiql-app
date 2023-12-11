@@ -42,40 +42,33 @@ export function testPasswordStrength(password: string): PasswordStrength {
   return PasswordStrength.VERY_WEAK;
 }
 
-const PasswordColorsOptions = {
-  DEFAULT: { bg: '#b0bec5', bgBar: '#b0bec5' },
-  VERY_WEAK: { bg: '#ffebee', bgBar: '#ef9a9a' },
-  WEAK: { bg: '#f9fbe7', bgBar: '#dce775' },
-  STRONG: { bg: '#e8f5e9', bgBar: '#81c784' },
-  VERY_STRONG: { bg: '#c8e6c9', bgBar: '#1b5e20' },
+const PasswordColorOptions = {
+  DEFAULT: { bg: '#b0bec5', bgBar: '#b0bec5', text: '#000000' },
+  VERY_WEAK: { bg: '#ffebee', bgBar: '#ef9a9a', text: '#ef5350' },
+  WEAK: { bg: '#f9fbe7', bgBar: '#dce775', text: '#cddc39' },
+  STRONG: { bg: '#e8f5e9', bgBar: '#81c784', text: '#4caf50' },
+  VERY_STRONG: { bg: '#c8e6c9', bgBar: '#1b5e20', text: '#1b5e20' },
 };
 
 type PasswordColors = {
   bg: string;
   bgBar: string;
+  text: string;
 };
 
-export function getPasswordBarColors(passwordStrength: string): PasswordColors {
+export function getPasswordColors(passwordStrength: string): PasswordColors {
   switch (passwordStrength) {
     case PasswordStrength.DEFAULT:
-      return PasswordColorsOptions.DEFAULT;
+      return PasswordColorOptions.DEFAULT;
     case PasswordStrength.VERY_WEAK:
-      return PasswordColorsOptions.VERY_WEAK;
+      return PasswordColorOptions.VERY_WEAK;
     case PasswordStrength.WEAK:
-      return PasswordColorsOptions.WEAK;
+      return PasswordColorOptions.WEAK;
     case PasswordStrength.STRONG:
-      return PasswordColorsOptions.STRONG;
+      return PasswordColorOptions.STRONG;
     case PasswordStrength.VERY_STRONG:
-      return PasswordColorsOptions.VERY_STRONG;
+      return PasswordColorOptions.VERY_STRONG;
     default:
-      return PasswordColorsOptions.DEFAULT;
+      return PasswordColorOptions.DEFAULT;
   }
-}
-
-export function getPasswordTextColor(passwordStrength: string): string {
-  if (passwordStrength === PasswordStrength.VERY_WEAK) return '#ef5350';
-  if (passwordStrength === PasswordStrength.WEAK) return '#cddc39';
-  if (passwordStrength === PasswordStrength.STRONG) return '#4caf50';
-  if (passwordStrength === PasswordStrength.VERY_STRONG) return '#1b5e20';
-  return 'black';
 }
