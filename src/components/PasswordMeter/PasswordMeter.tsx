@@ -1,22 +1,28 @@
 import { LinearProgress, Typography } from '@mui/material';
 import {
+  getPasswordStrengthLevel,
   getPasswordBarColors,
-  getPasswordLevel,
   getPasswordTextColor,
   testPasswordStrength,
 } from './password';
 
 export default function PasswordMeterInput({ value }: { value: string }) {
   const strength = testPasswordStrength(value);
-  const passwordLevel = getPasswordLevel(strength);
+  const passwordLevel = getPasswordStrengthLevel(strength);
+  console.log(passwordLevel);
   const maximum = 4;
 
   return (
     <>
       <LinearProgress
         variant="determinate"
-        value={(passwordLevel / maximum) * 100}
-        sx={getPasswordBarColors(strength)}
+        value={passwordLevel ? (passwordLevel / maximum) * 100 : 0}
+        sx={{
+          backgroundColor: getPasswordBarColors(strength).bg,
+          '& .MuiLinearProgress-bar': {
+            backgroundColor: getPasswordBarColors(strength).bgBar,
+          },
+        }}
       />
 
       <Typography

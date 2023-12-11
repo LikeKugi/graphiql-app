@@ -6,7 +6,15 @@ export enum PasswordStrength {
   VERY_STRONG = 'Very strong',
 }
 
-export function testPasswordStrength(password: string): string {
+export function getPasswordStrengthLevel(
+  value: PasswordStrength,
+): number | undefined {
+  const values = Object.values(PasswordStrength);
+  const index = values.indexOf(value);
+  return index !== -1 ? index : undefined;
+}
+
+export function testPasswordStrength(password: string): PasswordStrength {
   // Testing requirements
   const atLeastMinimumLength = (password: string) =>
     new RegExp(/(?=.{8,})/).test(password);
@@ -34,58 +42,34 @@ export function testPasswordStrength(password: string): string {
   return PasswordStrength.VERY_WEAK;
 }
 
-export function getPasswordLevel(passwordStrength: string): number {
-  if (passwordStrength === PasswordStrength.VERY_WEAK) return 1;
-  if (passwordStrength === PasswordStrength.WEAK) return 2;
-  if (passwordStrength === PasswordStrength.STRONG) return 3;
-  if (passwordStrength === PasswordStrength.VERY_STRONG) return 4;
-  //Default
-  return 0;
-}
+const PasswordColorsOptions = {
+  DEFAULT: { bg: '#b0bec5', bgBar: '#b0bec5' },
+  VERY_WEAK: { bg: '#ffebee', bgBar: '#ef9a9a' },
+  WEAK: { bg: '#f9fbe7', bgBar: '#dce775' },
+  STRONG: { bg: '#e8f5e9', bgBar: '#81c784' },
+  VERY_STRONG: { bg: '#c8e6c9', bgBar: '#1b5e20' },
+};
 
 type PasswordColors = {
-  backgroundColor: string;
-  '& .MuiLinearProgress-bar': {
-    backgroundColor: string;
-  };
+  bg: string;
+  bgBar: string;
 };
 
 export function getPasswordBarColors(passwordStrength: string): PasswordColors {
-  if (passwordStrength === PasswordStrength.VERY_WEAK)
-    return {
-      backgroundColor: '#ffebee',
-      '& .MuiLinearProgress-bar': {
-        backgroundColor: '#ef9a9a',
-      },
-    };
-  if (passwordStrength === PasswordStrength.WEAK)
-    return {
-      backgroundColor: '#f9fbe7',
-      '& .MuiLinearProgress-bar': {
-        backgroundColor: '#dce775',
-      },
-    };
-  if (passwordStrength === PasswordStrength.STRONG)
-    return {
-      backgroundColor: '#e8f5e9',
-      '& .MuiLinearProgress-bar': {
-        backgroundColor: '#81c784',
-      },
-    };
-  if (passwordStrength === PasswordStrength.VERY_STRONG)
-    return {
-      backgroundColor: '#c8e6c9',
-      '& .MuiLinearProgress-bar': {
-        backgroundColor: '#1b5e20',
-      },
-    };
-  //Default
-  return {
-    backgroundColor: '#b0bec5',
-    '& .MuiLinearProgress-bar': {
-      backgroundColor: '#b0bec5',
-    },
-  };
+  switch (passwordStrength) {
+    case PasswordStrength.DEFAULT:
+      return PasswordColorsOptions.DEFAULT;
+    case PasswordStrength.VERY_WEAK:
+      return PasswordColorsOptions.VERY_WEAK;
+    case PasswordStrength.WEAK:
+      return PasswordColorsOptions.WEAK;
+    case PasswordStrength.STRONG:
+      return PasswordColorsOptions.STRONG;
+    case PasswordStrength.VERY_STRONG:
+      return PasswordColorsOptions.VERY_STRONG;
+    default:
+      return PasswordColorsOptions.DEFAULT;
+  }
 }
 
 export function getPasswordTextColor(passwordStrength: string): string {
