@@ -73,6 +73,7 @@ const SignInPage = (): JSX.Element => {
 
   return (
     <Container component="main" maxWidth="xs">
+
       {loading && <CircularProgress />}
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       {!loading && !error && (
