@@ -20,7 +20,6 @@ import PasswordMeterInput from '@/components/PasswordMeter/PasswordMeter';
 import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
 
-
 const schema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
@@ -38,10 +37,12 @@ const schema = yup.object().shape({
 });
 
 const SignUpPage = (): JSX.Element => {
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, watch } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+
+  const watchPassword = watch('password');
 
   const [user, loading, error] = useAuthState(auth);
   const [errorMessage, setErrorMessage] = useState('');
@@ -203,7 +204,7 @@ const SignUpPage = (): JSX.Element => {
                     )}
                   />
                   <PasswordMeterInput
-                    value={watchedFields.password ? watchedFields.password : ''}
+                    value={watchPassword ? watchPassword : ''}
                   />
                 </Grid>
               </Grid>
