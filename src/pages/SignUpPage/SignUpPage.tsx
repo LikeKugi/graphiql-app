@@ -203,9 +203,7 @@ const SignUpPage = (): JSX.Element => {
                       />
                     )}
                   />
-                  <PasswordMeterInput
-                    value={watchPassword ? watchPassword : ''}
-                  />
+                  <PasswordMeterInput value={watchPassword || ''} />
                 </Grid>
               </Grid>
               <Button
