@@ -5,22 +5,24 @@ import { useAppSelector } from '@/store';
 import { Link } from 'react-router-dom';
 import { RouterConstants } from '@/constants/routes';
 import { welcomeText } from './text';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/lib/firebase';
 
 const WelcomePage = (): JSX.Element => {
   const { lang } = useAppSelector((state) => state.lang);
   const currentText = welcomeText[lang];
 
-  const isAuth = false;
+  const [user] = useAuthState(auth);
 
   return (
-    <main className={styles.welcome}>
+    <Box component={'main'} className={styles.welcome}>
       <Container className={styles.welcome__wrapper} fixed>
         <Box className={styles.welcome__links}>
           <Typography textAlign="center" variant="h6">
-            {isAuth ? currentText.headAuth : currentText.headNotAuth}
+            {user ? currentText.headAuth : currentText.headNotAuth}
           </Typography>
           <Box className={styles.welcome__links}>
-            {isAuth ? (
+            {user ? (
               <Link to={RouterConstants.MAIN}>
                 <Button size="large">{currentText.linkMain}</Button>
               </Link>
@@ -41,7 +43,7 @@ const WelcomePage = (): JSX.Element => {
           </Box>
         </Box>
       </Container>
-    </main>
+    </Box>
   );
 };
 export default WelcomePage;

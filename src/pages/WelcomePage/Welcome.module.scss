@@ -1,8 +1,8 @@
-.welcome__wrapper {
-  padding-block-start: 150px;
-}
-
-.welcome__links {
-  text-align: center;
-  margin-block-start: 5px;
+.welcome {
+  &__wrapper {
+  }
+  &__links {
+    text-align: center;
+    margin-block-start: 5px;
+  }
 }

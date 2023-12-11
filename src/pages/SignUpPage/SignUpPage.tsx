@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout, registerWithEmailAndPassword } from '@/lib/firebase';
+import { auth, registerWithEmailAndPassword } from '@/lib/firebase';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -18,6 +17,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
+import { Stack } from '@mui/material';
+import { RouterConstants } from '@/constants/routes';
 
 const schema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
@@ -36,25 +37,15 @@ const schema = yup.object().shape({
 });
 
 const SignUpPage = (): JSX.Element => {
-  const { handleSubmit, control, watch } = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
   const [user, loading, error] = useAuthState(auth);
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
-
-  const watchedFields = watch(); // Watch all fields
-
-  useEffect(() => {
-    setErrorMessage('');
-  }, [
-    watchedFields.firstName,
-    watchedFields.lastName,
-    watchedFields.email,
-    watchedFields.password,
-  ]);
 
   interface ISignUpFormData {
     firstName: string;
@@ -84,24 +75,19 @@ const SignUpPage = (): JSX.Element => {
 
   useEffect(() => {
     if (error) console.log(error);
-    if (user) navigate('/');
-  }, [user, error, navigate]);
+  }, [error, navigate]);
+
+  if (user && !user.isAnonymous) {
+    return <Navigate to={RouterConstants.INDEX} />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       {loading && <CircularProgress />}
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       {!loading && !error && (
         <>
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
+          <Stack pt={4} spacing={2} alignItems={'center'}>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
@@ -224,17 +210,18 @@ const SignUpPage = (): JSX.Element => {
               >
                 Sign Up
               </Button>
-              <Grid container justifyContent="center">
+              <Grid container justifyContent="center" spacing={2}>
                 <Grid item>
                   <Typography component="p">
                     Already have an account?
                   </Typography>
+                </Grid>
+                <Grid item>
                   <Link to="/signin">Sign in</Link>
                 </Grid>
               </Grid>
             </Box>
-          </Box>
-          <Button onClick={logout}>Log out</Button>
+          </Stack>
         </>
       )}
     </Container>
