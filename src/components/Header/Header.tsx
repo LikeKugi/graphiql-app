@@ -81,7 +81,6 @@ const Header = () => {
             <Button variant="outlined" color="inherit" onClick={() => logout()}>
               {currentText.outLink}
             </Button>
-
           )}
         </div>
       </Toolbar>
