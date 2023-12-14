@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, registerWithEmailAndPassword } from '@/lib/firebase';
 
@@ -19,24 +19,31 @@ import { Controller, useForm } from 'react-hook-form';
 import PasswordMeterInput from '@/components/PasswordMeter/PasswordMeter';
 import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
-
-const schema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Password must be at least 8 characters, and include one letter, one digit, and one special character',
-    ),
-});
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const SignUpPage = (): JSX.Element => {
+  const { t } = useLanguage();
+
+  const firstNameRequired = useMemo(() => t('signUp.firstNameRequired'), [t]);
+  const lastNameRequired = useMemo(() => t('signUp.lastNameRequired'), [t]);
+  const emailRequired = useMemo(() => t('signIn.emailRequired'), [t]);
+  const emailValidation = useMemo(() => t('signIn.emailValidation'), [t]);
+  const passwordRequired = useMemo(() => t('signIn.passwordRequired'), [t]);
+  const passwordNote = useMemo(() => t('signUp.passwordNote'), [t]);
+
+  const schema = yup.object().shape({
+    firstName: yup.string().required(firstNameRequired),
+    lastName: yup.string().required(lastNameRequired),
+    email: yup.string().email(emailValidation).required(emailRequired),
+    password: yup
+      .string()
+      .required(passwordRequired)
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        passwordNote,
+      ),
+  });
+
   const { handleSubmit, control, watch } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -46,8 +53,6 @@ const SignUpPage = (): JSX.Element => {
 
   const [user, loading, error] = useAuthState(auth);
   const [errorMessage, setErrorMessage] = useState('');
-
-  const navigate = useNavigate();
 
   interface ISignUpFormData {
     firstName: string;
@@ -78,7 +83,7 @@ const SignUpPage = (): JSX.Element => {
 
   useEffect(() => {
     if (error) console.log(error);
-  }, [error, navigate]);
+  }, [error]);
 
   if (user && !user.isAnonymous) {
     return <Navigate to={RouterConstants.INDEX} />;
@@ -119,7 +124,7 @@ const SignUpPage = (): JSX.Element => {
                         required
                         fullWidth
                         id="firstName"
-                        label="First Name"
+                        label={t('signUp.firstName')}
                         autoFocus
                         error={!!error}
                         value={value}
@@ -144,7 +149,7 @@ const SignUpPage = (): JSX.Element => {
                         required
                         fullWidth
                         id="lastName"
-                        label="Last Name"
+                        label={t('signUp.lastName')}
                         error={!!error}
                         value={value}
                         helperText={error ? error.message : ''}
@@ -167,7 +172,7 @@ const SignUpPage = (): JSX.Element => {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label={t('signIn.email')}
                         name="email"
                         autoComplete="email"
                         error={!!error}
@@ -192,7 +197,7 @@ const SignUpPage = (): JSX.Element => {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label={t('signIn.password')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
@@ -212,16 +217,16 @@ const SignUpPage = (): JSX.Element => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign Up
+                {t('signUp.button')}
               </Button>
               <Grid container justifyContent="center" spacing={2}>
                 <Grid item>
                   <Typography component="p">
-                    Already have an account?
+                    {t('signUp.haveAccount')}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Link to="/signin">Sign in</Link>
+                  <Link to="/signin">{t('signIn.button')}</Link>
                 </Grid>
               </Grid>
             </Box>

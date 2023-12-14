@@ -1,6 +1,28 @@
 {
   "header.home": "Главная",
   "header.switchLabel": "Язык",
-  "header.signOut": "Выйти"
- 
+  "header.signOut": "Выйти",
+  "signIn.title": "Войти",
+  "signIn.email": "Адрес электронной почты",
+  "signIn.emailValidation": "Неверный адрес электронной почты",
+  "signIn.emailRequired": "Адрес электронной почты обязательно",
+  "signIn.password": "Пароль",
+  "signIn.passwordRequired": "Пароль обязательно",
+  "signIn.error": "Произошла ошибка. Пожалуйста, попробуйте еще раз.",
+  "signIn.button": "Войти",
+  "signIn.dontHaveAccount": "У вас нет учетной записи?",
+  "signIn.signUp": "Зарегистрироваться",
+  "signUp.firstName": "Имя",
+  "signUp.lastName": "Фамилия",
+  "signUp.firstNameRequired": "Имя обязательно",
+  "signUp.lastNameRequired": "Фамилия обязательна",
+  "signUp.button": "Зарегистрироваться",
+  "signUp.passwordNote": "Пароль должен состоять не менее чем из 8 символов и включать одну букву, одну цифру и один специальный символ.",
+  "signUp.haveAccount": "У вас уже есть аккаунт?",
+  "welcome.headAuth": "Пожалуйста перейдите на главную страницу для использования приложения",
+  "welcome.headNotAuth": "Авторизуйтесь или зарегистрируйтесь для использования приложения",
+  "welcome.linkSignIn": "Авторизоваться",
+  "welcome.linkSignUp": "Зарегистрироваться",
+  "welcome.linkMain": "На главную"
 }
+
