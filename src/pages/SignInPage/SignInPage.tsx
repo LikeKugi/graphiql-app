@@ -1,5 +1,5 @@
-import { useEffect, useState, JSX } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState, JSX, useMemo } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -18,19 +18,23 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
-
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: yup.string().required('Password is required'),
-});
+import { useLanguage } from '@/contexts/LanguageContext';
+import { ISignInFormData } from './interfaces';
 
 const SignInPage = (): JSX.Element => {
+  const { t } = useLanguage();
+
+  const emailValidation = useMemo(() => t('signIn.emailValidation'), [t]);
+  const emailRequired = useMemo(() => t('signIn.emailRequired'), [t]);
+  const passwordRequired = useMemo(() => t('signIn.passwordRequired'), [t]);
+
+  const schema = yup.object().shape({
+    email: yup.string().email(emailValidation).required(emailRequired),
+    password: yup.string().required(passwordRequired),
+  });
+
   const [errorMessage, setErrorMessage] = useState('');
   const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
   const { handleSubmit, control } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -38,42 +42,32 @@ const SignInPage = (): JSX.Element => {
 
   useEffect(() => {
     if (error) console.log(error);
-  }, [error, navigate]);
+  }, [error]);
 
   if (user && !user.isAnonymous) {
     return <Navigate to={RouterConstants.INDEX} />;
   }
 
-  interface ISignInFormData {
-    email: string;
-    password: string;
-  }
-
   async function handleFormSubmit(data: ISignInFormData) {
-    console.log(data);
     const { email, password } = data;
     try {
       setErrorMessage('');
 
-      const {
-        success,
-        userID,
-        error: loginError,
-      } = await logInWithEmailAndPassword(email, password);
+      const { success, error: loginError } = await logInWithEmailAndPassword(
+        email,
+        password,
+      );
 
-      if (success) {
-        console.log(userID);
-      } else {
+      if (!success) {
         setErrorMessage(loginError);
       }
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
+      setErrorMessage(t('signIn.error'));
     }
   }
 
   return (
     <Container component="main" maxWidth="xs">
-
       {loading && <CircularProgress />}
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       {!loading && !error && (
@@ -82,7 +76,7 @@ const SignInPage = (): JSX.Element => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {t('signIn.title')}
           </Typography>
           <Box
             component="form"
@@ -103,7 +97,7 @@ const SignInPage = (): JSX.Element => {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label={t('signIn.email')}
                   name="email"
                   autoComplete="email"
                   autoFocus
@@ -127,7 +121,7 @@ const SignInPage = (): JSX.Element => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={t('signIn.password')}
                   type="password"
                   id="password"
                   autoComplete="current-password"
@@ -145,14 +139,16 @@ const SignInPage = (): JSX.Element => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {t('signIn.button')}
             </Button>
             <Grid container justifyContent="center" spacing={2}>
               <Grid item>
-                <Typography component="p">Don't have an account?</Typography>
+                <Typography component="p">
+                  {t('signIn.dontHaveAccount')}
+                </Typography>
               </Grid>
               <Grid item>
-                <Link to="/signup">{'Sign Up'}</Link>
+                <Link to="/signup">{t('signIn.signUp')}</Link>
               </Grid>
             </Grid>
           </Box>

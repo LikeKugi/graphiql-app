@@ -4,9 +4,18 @@ import {
   getPasswordColors,
   testPasswordStrength,
 } from './password';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { camelCase } from '@/lib/utils';
 
 export default function PasswordMeterInput({ value }: { value: string }) {
+  const { t } = useLanguage();
+
   const strength = testPasswordStrength(value);
+
+  const strengthText =
+    strength === 'Password strength'
+      ? t('password.default')
+      : t(`password.${camelCase(strength)}`);
   const passwordLevel = getPasswordStrengthLevel(strength);
   const maximum = 4;
 
@@ -33,7 +42,7 @@ export default function PasswordMeterInput({ value }: { value: string }) {
           textAlign: 'right',
         }}
       >
-        {strength}
+        {strengthText}
       </Typography>
     </>
   );

@@ -1,10 +1,4 @@
-export enum PasswordStrength {
-  DEFAULT = 'Password strength',
-  VERY_WEAK = 'Very weak',
-  WEAK = 'Weak',
-  STRONG = 'Strong',
-  VERY_STRONG = 'Very strong',
-}
+import { PasswordColors, PasswordStrength } from './types';
 
 export function getPasswordStrengthLevel(
   value: PasswordStrength,
@@ -49,12 +43,6 @@ const PasswordColorOptions = {
   WEAK: { bg: '#f9fbe7', bgBar: '#dce775', text: '#cddc39' },
   STRONG: { bg: '#e8f5e9', bgBar: '#81c784', text: '#4caf50' },
   VERY_STRONG: { bg: '#c8e6c9', bgBar: '#1b5e20', text: '#1b5e20' },
-};
-
-type PasswordColors = {
-  bg: string;
-  bgBar: string;
-  text: string;
 };
 
 export function getPasswordColors(passwordStrength: string): PasswordColors {

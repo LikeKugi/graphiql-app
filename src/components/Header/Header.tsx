@@ -13,19 +13,19 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { languageConstant } from '@/constants/language/language.constant';
-import { useAppDispatch, useAppSelector } from '@/store';
-import { setLang } from '@/store/reducers/langSlice';
-import { textHeader } from './text';
 import { logout } from '@/lib/firebase';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useLogout } from '@/hooks/useLogout';
 
 const Header = () => {
-  const { lang } = useAppSelector((state) => state.lang);
+  useLogout();
+  const { lang, setLang, t } = useLanguage();
+
   const [isSticky, setIsSticky] = useState(false);
-  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const selectId = useId();
 
-  const currentText = textHeader[lang];
   const isAuth = true;
 
   const handleScroll = () => {
@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   const handleSelect = (e: SelectChangeEvent) => {
-    dispatch(setLang(e.target.value as languageConstant));
+    setLang(e.target.value as languageConstant);
   };
 
   useEffect(() => {
@@ -56,7 +56,9 @@ const Header = () => {
     >
       <Toolbar className={styles.header__wrapper}>
         <FormControl sx={{ minWidth: 120 }}>
-          <InputLabel id={`${selectId}-label`}>{currentText.label}</InputLabel>
+          <InputLabel id={`${selectId}-label`}>
+            {t('header.switchLabel')}
+          </InputLabel>
           <Select
             onChange={handleSelect}
             id={selectId}
@@ -75,13 +77,12 @@ const Header = () => {
             color="inherit"
             onClick={() => navigate(RouterConstants.INDEX)}
           >
-            {currentText.homeLink}
+            {t('header.home')}
           </Button>
           {isAuth && (
             <Button variant="outlined" color="inherit" onClick={() => logout()}>
-              {currentText.outLink}
+              {t('header.signOut')}
             </Button>
-
           )}
         </div>
       </Toolbar>
