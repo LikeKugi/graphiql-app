@@ -7,9 +7,7 @@ interface LanguageContextProps {
   t: (text: string, number?: number) => string;
 }
 
-export const LanguageContext = createContext<LanguageContextProps | undefined>(
-  undefined,
-);
+export const LanguageContext = createContext<LanguageContextProps | null>(null);
 
 export function LanguageProvider({ children }: { children: JSX.Element }) {
   const [lang, setLang] = useState('ru');

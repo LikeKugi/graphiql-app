@@ -16,14 +16,11 @@ export function useLogout() {
   }
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       if (user) {
         const { stsTokenManager } = user as CustomUser;
         const { expirationTime } = stsTokenManager;
         const now = Date.now();
         const timeToExpire = expirationTime - now;
-
-        console.log(timeToExpire);
 
         if (timeToExpire < 0) {
           // Automatically logout and redirect user
