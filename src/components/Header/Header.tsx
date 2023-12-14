@@ -15,8 +15,10 @@ import {
 import { languageConstant } from '@/constants/language/language.constant';
 import { logout } from '@/lib/firebase';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useLogout } from '@/hooks/useLogout';
 
 const Header = () => {
+  useLogout();
   const { lang, setLang, t } = useLanguage();
 
   const [isSticky, setIsSticky] = useState(false);

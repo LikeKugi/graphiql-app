@@ -8,14 +8,11 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { LanguageProvider } from './contexts/LanguageContext.tsx';
-import { AuthProvider } from './contexts/AuthContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <LanguageProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <App />
     </LanguageProvider>
   </React.StrictMode>,
 );
