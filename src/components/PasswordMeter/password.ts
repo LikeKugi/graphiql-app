@@ -22,8 +22,9 @@ export function testPasswordStrength(password: string): PasswordStrength {
     new RegExp(/(?=.*?[a-zA-Z])/).test(password);
   const atLeastOneDigit = (password: string) =>
     new RegExp(/(?=.*?[0-9])/).test(password);
+  // Matches any non-word character (equal to [^a-zA-Z0-9_]) check for the presence of at least one special character or underscore, supporting Unicode characters.
   const atLeastOneSpecialChar = (password: string) =>
-    new RegExp(/(?=.*?[#?!@$ %^&*-])/).test(password);
+    new RegExp(/(?=.*?[\W_])/).test(password);
 
   // Evaluation
   if (password.length === 0) return PasswordStrength.DEFAULT;
