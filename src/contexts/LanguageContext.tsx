@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import translate from '@/lib/translate';
+import translate from '@/translations/translate';
 
 interface LanguageContextProps {
   lang: string;
