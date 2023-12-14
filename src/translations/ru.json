@@ -23,6 +23,8 @@
   "welcome.headNotAuth": "Авторизуйтесь или зарегистрируйтесь для использования приложения",
   "welcome.linkSignIn": "Авторизоваться",
   "welcome.linkSignUp": "Зарегистрироваться",
-  "welcome.linkMain": "На главную"
+  "welcome.linkMain": "На главную",
+  "notFound.title": "Что-то пошло не так... Ошибка 404. Страница не найдена."
 }
+
 

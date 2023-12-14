@@ -23,5 +23,8 @@
   "welcome.headNotAuth": "Log in or register to use the app",
   "welcome.linkSignIn": "Sign in",
   "welcome.linkSignUp": "Sign up",
-  "welcome.linkMain": "Main"
+  "welcome.linkMain": "Main",
+  "notFound.title": "Something went wrong... Error 404. Page not found."
 }
+
+
