@@ -30,8 +30,6 @@ const Header = () => {
   const [user] = useAuthState(auth);
   const isAuth = !!user;
 
-  console.log(isAuth);
-
   const handleScroll = () => {
     const pos = window.scrollY;
     setIsSticky(pos > 0);
