@@ -1,12 +1,10 @@
 import { Box, Container, Typography } from '@mui/material';
 import errorImg from '@/assets/png/404.png.png';
 import styles from './NotFoundPage.module.scss';
-import { useAppSelector } from '@/store';
-import { notFoundText } from './text';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const NotFoundPage = () => {
-  const { lang } = useAppSelector((state) => state.lang);
-  const currentText = notFoundText[lang];
+  const { t } = useLanguage();
 
   return (
     <main>
@@ -15,7 +13,7 @@ const NotFoundPage = () => {
           <img src={errorImg} alt="Error 404" />
         </Box>
         <Typography variant="h5" textAlign="center">
-          {currentText.title}
+          {t('notFound.title')}
         </Typography>
       </Container>
     </main>
