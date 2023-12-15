@@ -13,9 +13,10 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { languageConstant } from '@/constants/language/language.constant';
-import { logout } from '@/lib/firebase';
+import { auth, logout } from '@/lib/firebase';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLogout } from '@/hooks/useLogout';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Header = () => {
   useLogout();
@@ -26,7 +27,10 @@ const Header = () => {
   const navigate = useNavigate();
   const selectId = useId();
 
-  const isAuth = true;
+  const [user] = useAuthState(auth);
+  const isAuth = !!user;
+
+  console.log(isAuth);
 
   const handleScroll = () => {
     const pos = window.scrollY;
@@ -72,17 +76,35 @@ const Header = () => {
         </FormControl>
 
         <div className={styles.header__buttons}>
-          <Button
-            variant="text"
-            color="inherit"
-            onClick={() => navigate(RouterConstants.INDEX)}
-          >
-            {t('header.home')}
-          </Button>
-          {isAuth && (
-            <Button variant="outlined" color="inherit" onClick={() => logout()}>
-              {t('header.signOut')}
-            </Button>
+          {isAuth ? (
+            <>
+              <Button
+                variant="text"
+                onClick={() => navigate(RouterConstants.INDEX)}
+              >
+                {t('header.home')}
+              </Button>
+
+              <Button variant="outlined" onClick={() => logout()}>
+                {t('header.signOut')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outlined"
+                onClick={() => navigate(RouterConstants.SIGNIN)}
+              >
+                {' '}
+                {t('signIn.button')}
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => navigate(RouterConstants.SIGNUP)}
+              >
+                {t('signUp.button')}
+              </Button>
+            </>
           )}
         </div>
       </Toolbar>

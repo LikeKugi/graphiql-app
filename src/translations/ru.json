@@ -11,7 +11,7 @@
   "signIn.error": "Произошла ошибка. Пожалуйста, попробуйте еще раз.",
   "signIn.button": "Войти",
   "signIn.dontHaveAccount": "У вас нет учетной записи?",
-  "signIn.signUp": "Зарегистрироваться",
+  "signUp.title": "Зарегистрироваться",
   "signUp.firstName": "Имя",
   "signUp.lastName": "Фамилия",
   "signUp.firstNameRequired": "Имя обязательно",

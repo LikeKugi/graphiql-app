@@ -91,7 +91,7 @@ const SignUpPage = (): JSX.Element => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              {t('signUp.title')}
             </Typography>
             <Box
               component="form"

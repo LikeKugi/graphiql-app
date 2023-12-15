@@ -148,7 +148,7 @@ const SignInPage = (): JSX.Element => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Link to="/signup">{t('signIn.signUp')}</Link>
+                <Link to="/signup">{t('signUp.title')}</Link>
               </Grid>
             </Grid>
           </Box>

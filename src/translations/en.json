@@ -11,7 +11,7 @@
   "signIn.error": "An error occurred. Please try again.",
   "signIn.button": "Sign In",
   "signIn.dontHaveAccount": "Don't have an account?",
-  "signIn.signUp": "Sign Up",
+  "signUp.title": "Sign Up",
   "signUp.firstName": "First name",
   "signUp.lastName": "Last name",
   "signUp.firstNameRequired": "First name is required",
