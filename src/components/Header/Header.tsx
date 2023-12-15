@@ -93,7 +93,6 @@ const Header = () => {
                 variant="outlined"
                 onClick={() => navigate(RouterConstants.SIGNIN)}
               >
-                {' '}
                 {t('signIn.button')}
               </Button>
               <Button
