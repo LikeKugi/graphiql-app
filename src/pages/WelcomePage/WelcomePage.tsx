@@ -1,16 +1,14 @@
 import { Container, Box, Typography, Button } from '@mui/material';
 import { JSX } from 'react';
 import styles from './Welcome.module.scss';
-import { useAppSelector } from '@/store';
 import { Link } from 'react-router-dom';
 import { RouterConstants } from '@/constants/routes';
-import { welcomeText } from './text';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const WelcomePage = (): JSX.Element => {
-  const { lang } = useAppSelector((state) => state.lang);
-  const currentText = welcomeText[lang];
+  const { t } = useLanguage();
 
   const [user] = useAuthState(auth);
 
@@ -19,23 +17,23 @@ const WelcomePage = (): JSX.Element => {
       <Container className={styles.welcome__wrapper} fixed>
         <Box className={styles.welcome__links}>
           <Typography textAlign="center" variant="h6">
-            {user ? currentText.headAuth : currentText.headNotAuth}
+            {user ? t('welcome.headAuth') : t('welcome.headNotAuth')}
           </Typography>
           <Box className={styles.welcome__links}>
             {user ? (
               <Link to={RouterConstants.MAIN}>
-                <Button size="large">{currentText.linkMain}</Button>
+                <Button size="large">{t('welcome.linkMain')}</Button>
               </Link>
             ) : (
               <>
                 <Link to={RouterConstants.SIGNIN}>
                   <Button size="large" variant="text">
-                    {currentText.linkSignIn}
+                    {t('welcome.linkSignIn')}
                   </Button>
                 </Link>
                 <Link to={RouterConstants.SIGNUP}>
                   <Button size="large" variant="text">
-                    {currentText.linkSignUp}
+                    {t('welcome.linkSignUp')}
                   </Button>
                 </Link>
               </>
