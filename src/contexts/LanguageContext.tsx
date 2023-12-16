@@ -5,7 +5,7 @@ import { LanguageContextProps } from './interfaces';
 export const LanguageContext = createContext<LanguageContextProps | null>(null);
 
 export function LanguageProvider({ children }: { children: JSX.Element }) {
-  const [lang, setLang] = useState('ru');
+  const [lang, setLang] = useState('en');
 
   const translations = useMemo(
     () => ({
