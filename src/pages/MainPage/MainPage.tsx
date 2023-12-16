@@ -13,7 +13,6 @@ const MainPage = (): JSX.Element => {
   );
 
   const handleSubmit = async () => {
-    console.log('handle submit ---> start');
     if (!graphRequest) {
       return;
     }
