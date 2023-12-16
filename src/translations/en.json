@@ -29,6 +29,7 @@
   "password.veryWeak": "Very weak",
   "password.weak": "Weak",
   "password.strong": "Strong",
-  "password.veryStrong": "Very strong"
+  "password.veryStrong": "Very strong",
+  "docs.description": "A GraphQL schema provides a root type for each kind of operation.",
+  "docs.allSchema": "All Schema Types"
 }
-

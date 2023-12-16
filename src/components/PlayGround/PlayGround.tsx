@@ -10,6 +10,8 @@ import { langs } from '@uiw/codemirror-extensions-langs';
 import CodeMirror from '@uiw/react-codemirror';
 import PlayGroundResizer from '@/components/PlayGroundResizer/PlayGroundResizer';
 import { IPlayGroundProps } from '@/components/PlayGround/PlayGround.types';
+import { useAppSelector } from '@/store';
+import Docs from '../Docs/Docs';
 
 const PlayGround: FC<IPlayGroundProps> = ({
   headersRequest,
@@ -20,6 +22,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
   setGraphRequest,
   jsonResponse,
 }): JSX.Element => {
+  const { isDocsShown } = useAppSelector((state) => state.docs);
   const [currentTab, setCurrentTab] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -30,9 +33,38 @@ const PlayGround: FC<IPlayGroundProps> = ({
   return (
     <>
       <PanelGroup direction={'horizontal'} className={styles.PlayGround}>
-        <Panel className={styles.PlayGround__panel} minSize={5} collapsible>
+        {isDocsShown && (
+          <>
+            <Panel
+              order={1}
+              id="panel_1"
+              minSize={5}
+              collapsible
+              className={styles.PlayGround__panel}
+            >
+              <Docs />
+            </Panel>
+            <PlayGroundResizer
+              label={<SwapVertIcon fontSize="small" />}
+              orientation="vertical"
+            />
+          </>
+        )}
+        <Panel
+          id="panel_2"
+          order={2}
+          className={styles.PlayGround__panel}
+          minSize={5}
+          collapsible
+        >
           <PanelGroup direction={'vertical'}>
-            <Panel className={styles.PlayGround__panel} minSize={5} collapsible>
+            <Panel
+              order={3}
+              id="panel_2.1"
+              className={styles.PlayGround__panel}
+              minSize={5}
+              collapsible
+            >
               <CodeMirror
                 className={styles.PlayGround__CodeMirror}
                 value={graphRequest}
@@ -49,6 +81,8 @@ const PlayGround: FC<IPlayGroundProps> = ({
               <Tab label={'Headers'} />
             </Tabs>
             <Panel
+              id="panel_2.2"
+              order={4}
               className={styles.PlayGround__panel}
               minSize={10}
               collapsible
@@ -82,7 +116,13 @@ const PlayGround: FC<IPlayGroundProps> = ({
           label={<SwapHorizIcon fontSize="small" />}
           orientation="vertical"
         />
-        <Panel minSize={5} collapsible className={styles.PlayGround__panel}>
+        <Panel
+          id="panel_3"
+          order={5}
+          minSize={5}
+          collapsible
+          className={styles.PlayGround__panel}
+        >
           <CodeMirror
             className={styles.PlayGround__CodeMirror}
             value={jsonResponse}

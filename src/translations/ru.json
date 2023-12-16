@@ -29,7 +29,7 @@
   "password.veryWeak": "Очень слабый",
   "password.weak": "Слабый",
   "password.strong": "Сильный",
-  "password.veryStrong": "Очень сильный"
+  "password.veryStrong": "Очень сильный",
+  "docs.description": "Графическая схема предоставляет корневой тип для каждого вида операций.",
+  "docs.allSchema": "Все типы схем"
 }
-
-

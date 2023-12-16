@@ -4,6 +4,9 @@ import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Grid from '@mui/material/Grid';
 import { IPlayGroundActionsProps } from '@/components/PlayGroundActions/PlayGroundActions.types';
+import DescriptionIcon from '@mui/icons-material/Description';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { setIsDocsShown } from '@/store/reducers/docsSlice';
 
 const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   handleSubmit,
@@ -12,15 +15,27 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   setUrlAddress,
 }): JSX.Element => {
   const inputId = useId();
+  const { isDocsShown } = useAppSelector((state) => state.docs);
+  const dispatch = useAppDispatch();
+
+  const onDocsClick = () => {
+    dispatch(setIsDocsShown(!isDocsShown));
+  };
+
   return (
     <Container maxWidth={'xl'}>
       <Grid container spacing={1.5}>
-        <Grid item xs={6} md={1}>
+        <Grid item xs={4} md={1} onClick={onDocsClick}>
+          <Button variant="text" onClick={handlePrettify}>
+            <DescriptionIcon />
+          </Button>
+        </Grid>
+        <Grid item xs={4} md={1}>
           <Button variant="text" onClick={handlePrettify}>
             <DisplaySettingsIcon />
           </Button>
         </Grid>
-        <Grid item xs={6} md={1}>
+        <Grid item xs={4} md={1}>
           <Button variant="text" onClick={handleSubmit} color="success">
             <PlayCircleOutlineIcon />
           </Button>
