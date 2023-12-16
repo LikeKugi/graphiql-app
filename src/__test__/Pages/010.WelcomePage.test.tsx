@@ -4,12 +4,15 @@ import WelcomePage from '@/pages/WelcomePage/WelcomePage';
 import { MemoryRouter } from 'react-router-dom';
 import { languageConstant } from '@/constants/language/language.constant';
 import { screen } from '@testing-library/react';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 describe('test WelcomePage', () => {
   test('should render correct data in english', () => {
     renderWithProviders(
       <MemoryRouter>
-        <WelcomePage />
+        <LanguageProvider>
+          <WelcomePage />
+        </LanguageProvider>
       </MemoryRouter>,
       {
         preloadedState: { lang: { lang: languageConstant.EN } },
@@ -24,7 +27,9 @@ describe('test WelcomePage', () => {
   test('should render correct data in russian', () => {
     renderWithProviders(
       <MemoryRouter>
-        <WelcomePage />
+        <LanguageProvider>
+          <WelcomePage />
+        </LanguageProvider>
       </MemoryRouter>,
       {
         preloadedState: { lang: { lang: languageConstant.RU } },
