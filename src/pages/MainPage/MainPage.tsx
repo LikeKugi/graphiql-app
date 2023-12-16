@@ -1,7 +1,7 @@
 import { JSX, useState } from 'react';
 import PlayGround from '@/components/PlayGround/PlayGround';
 import PlayGroundActions from '@/components/PlayGroundActions/PlayGroundActions';
-import { prettifyJSON } from '@/utils/prettifyJSON';
+import { prettifyJSON, prettifyJSONObject } from '@/utils/prettifyJSON';
 
 const MainPage = (): JSX.Element => {
   const [graphRequest, setGraphRequest] = useState('');
@@ -19,16 +19,19 @@ const MainPage = (): JSX.Element => {
     }
     setJsonResponse('');
     const address = urlAddress || 'https://rickandmortyapi.com/graphql';
-    let variables: object;
+    const bodyObject: { query: string; variables?: object } = {
+      query: graphRequest,
+    };
+    let variables: object | null;
     try {
       variables = JSON.parse(variablesRequest);
     } catch (e) {
-      variables = {};
+      variables = null;
     }
-    const body = JSON.stringify({
-      query: graphRequest,
-      variables,
-    })
+    if (variables) {
+      bodyObject.variables = variables;
+    }
+    const body = JSON.stringify(bodyObject)
       .replace(/\\n/g, '')
       .replace(/\s+/g, ' ');
     const headers = headersRequest ? JSON.parse(headersRequest) : '';
@@ -42,7 +45,7 @@ const MainPage = (): JSX.Element => {
       body,
     });
     const data = await response.json();
-    setJsonResponse(prettifyJSON(data));
+    setJsonResponse(prettifyJSONObject(data));
   };
 
   const handlePrettify = () => {

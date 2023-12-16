@@ -7,3 +7,7 @@ export const prettifyJSON = (data: string) => {
   }
   return prettified;
 };
+
+export const prettifyJSONObject = (data: object) => {
+  return JSON.stringify(data, null, 2);
+};
