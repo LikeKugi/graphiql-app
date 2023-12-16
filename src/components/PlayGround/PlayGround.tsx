@@ -1,4 +1,4 @@
-import { Dispatch, FC, JSX, SetStateAction, useState } from 'react';
+import { FC, JSX, useState } from 'react';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 import styles from './PlayGround.module.scss';
 import { Box, Tab, Tabs } from '@mui/material';
@@ -9,16 +9,7 @@ import { EditorView } from '@codemirror/view';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import CodeMirror from '@uiw/react-codemirror';
 import PlayGroundResizer from '@/components/PlayGroundResizer/PlayGroundResizer';
-
-interface IPlayGroundProps {
-  graphRequest: string;
-  headersRequest: string;
-  variablesRequest: string;
-  jsonResponse: string;
-  setGraphRequest: Dispatch<SetStateAction<string>>;
-  setHeadersRequest: Dispatch<SetStateAction<string>>;
-  setVariablesRequest: Dispatch<SetStateAction<string>>;
-}
+import { IPlayGroundProps } from '@/components/PlayGround/PlayGround.types';
 
 const PlayGround: FC<IPlayGroundProps> = ({
   headersRequest,

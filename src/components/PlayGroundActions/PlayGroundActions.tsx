@@ -1,15 +1,9 @@
-import { Dispatch, FC, JSX, SetStateAction, useId } from 'react';
+import { FC, JSX, useId } from 'react';
 import { Button, Container, TextField } from '@mui/material';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Grid from '@mui/material/Grid';
-
-interface IPlayGroundActionsProps {
-  handleSubmit: () => void;
-  handlePrettify: () => void;
-  urlAddress: string;
-  setUrlAddress: Dispatch<SetStateAction<string>>;
-}
+import { IPlayGroundActionsProps } from '@/components/PlayGroundActions/PlayGroundActions.types';
 
 const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   handleSubmit,

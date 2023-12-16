@@ -1,11 +1,7 @@
-import { FC, JSX, ReactNode } from 'react';
+import { FC, JSX } from 'react';
 import { Chip, Divider } from '@mui/material';
 import { PanelResizeHandle } from 'react-resizable-panels';
-
-interface IPlayGroundResizerProps {
-  orientation?: 'vertical' | 'horizontal';
-  label: ReactNode;
-}
+import { IPlayGroundResizerProps } from '@/components/PlayGroundResizer/PlayGroundResizer.types';
 
 const PlayGroundResizer: FC<IPlayGroundResizerProps> = ({
   orientation,
