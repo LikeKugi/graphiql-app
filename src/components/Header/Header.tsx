@@ -72,7 +72,6 @@ const Header = () => {
             <MenuItem value={languageConstant.RU}>Русский</MenuItem>
           </Select>
         </FormControl>
-
         <div className={styles.header__buttons}>
           {isAuth ? (
             <>

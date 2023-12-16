@@ -5,12 +5,15 @@ import Header from '@/components/Header/Header';
 import { languageConstant } from '@/constants/language/language.constant';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 describe('test Header component', () => {
   test('should render correct data with english', () => {
     renderWithProviders(
       <MemoryRouter>
-        <Header />
+        <LanguageProvider>
+          <Header />
+        </LanguageProvider>
       </MemoryRouter>,
       {
         preloadedState: { lang: { lang: languageConstant.EN } },
@@ -26,7 +29,9 @@ describe('test Header component', () => {
   test('should render correct data with russian', () => {
     renderWithProviders(
       <MemoryRouter>
-        <Header />
+        <LanguageProvider>
+          <Header />
+        </LanguageProvider>
       </MemoryRouter>,
       {
         preloadedState: { lang: { lang: languageConstant.RU } },
@@ -42,7 +47,9 @@ describe('test Header component', () => {
   test('should change language', async () => {
     renderWithProviders(
       <MemoryRouter>
-        <Header />
+        <LanguageProvider>
+          <Header />
+        </LanguageProvider>
       </MemoryRouter>,
       {
         preloadedState: { lang: { lang: languageConstant.EN } },
