@@ -1,37 +1,35 @@
-import { useEffect, useState } from 'react';
-import { getDocs, getType } from './utils';
+import { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { ITypeQuery } from './interfaces';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './Docs.module.scss';
+import { useAppSelector } from '@/store';
+import { docsApi } from '@/api/docsApi';
 
 const Docs = () => {
-  const [docs, setDocs] = useState<ITypeQuery[]>([]);
-  const [queryTypes, setQueryTypes] = useState<ITypeQuery[]>([]);
   const { t } = useLanguage();
 
-  const getAllTypes = async () => {
-    const typesList = await getDocs();
-    setDocs(typesList);
+  const { url } = useAppSelector((state) => state.address);
+  const [queryTypes, setQueryTypes] = useState<ITypeQuery[]>([]);
+
+  const { data: docs, isError: isDocsError } = docsApi.useGetDocsQuery(url);
+  const [fetchType, { isError: isTypeError }] = docsApi.useLazyGetTypeQuery();
+
+  const getCurType = async (type: string) => {
+    const data = await fetchType({ url, type });
+    if (data.data) {
+      const newType = data.data.data.__type;
+      setQueryTypes([...queryTypes, newType]);
+    }
   };
 
-  const getCurType = async (name: string) => {
-    const curType = await getType(name);
-    setQueryTypes([...queryTypes, curType]);
-  };
-
-  const getPrevElem = () => {
+  const getPrevType = () => {
     const newQueryTypes = queryTypes.slice(0, -1);
     setQueryTypes(newQueryTypes);
   };
 
-  useEffect(() => {
-    getAllTypes();
-  }, []);
-
   const lastType = queryTypes[queryTypes.length - 1];
-  const prevElem = queryTypes[queryTypes.length - 2];
-  console.log(lastType);
+  const prevType = queryTypes[queryTypes.length - 2];
 
   return (
     <Box className={styles.docs}>
@@ -40,36 +38,40 @@ const Docs = () => {
           variant="outlined"
           color="primary"
           size="small"
-          onClick={getPrevElem}
+          onClick={getPrevType}
           sx={{ mb: '10px' }}
         >
-          {prevElem ? prevElem.name : 'Docs'}
+          {prevType ? prevType.name : 'Docs'}
         </Button>
       )}
       <Typography variant="h4" mb="30px" fontWeight={500}>
-        {!queryTypes.length ? 'Docs' : lastType.name}
+        {!queryTypes.length ? 'Docs' : lastType?.name}
       </Typography>
-      {!queryTypes.length ? (
+
+      {isDocsError || isTypeError ? (
+        <Typography>{t('docs.error')}</Typography>
+      ) : !queryTypes.length ? (
         <>
           <Typography mb="30px">{t('docs.description')}</Typography>
           <Typography mb="15px" fontSize={18} fontWeight={500}>
             {t('docs.allSchema')}
           </Typography>
-          {docs.map((type, i) => (
-            <Typography
-              className={styles.docs__text_type}
-              key={i}
-              mb="5px"
-              onClick={() => getCurType(type.name)}
-            >
-              {type.name}
-            </Typography>
-          ))}
+          {docs &&
+            docs.map((type, i) => (
+              <Typography
+                className={styles.docs__text_type}
+                key={i}
+                mb="5px"
+                onClick={() => getCurType(type.name)}
+              >
+                {type.name}
+              </Typography>
+            ))}
         </>
       ) : (
         <>
-          <Typography>{lastType.description}</Typography>
-          {!!lastType.fields?.length && (
+          <Typography>{lastType?.description}</Typography>
+          {!!lastType?.fields?.length && (
             <>
               <Typography mb="15px" fontSize={18} fontWeight={500}>
                 Fields
