@@ -1,7 +1,9 @@
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import PlayGround from '@/components/PlayGround/PlayGround';
 import PlayGroundActions from '@/components/PlayGroundActions/PlayGroundActions';
 import { prettifyJSON, prettifyJSONObject } from '@/utils/prettifyJSON';
+import { useAppDispatch } from '@/store';
+import { setAddress } from '@/store/reducers/addressSlice';
 
 const MainPage = (): JSX.Element => {
   const [graphRequest, setGraphRequest] = useState('');
@@ -11,6 +13,11 @@ const MainPage = (): JSX.Element => {
   const [urlAddress, setUrlAddress] = useState(
     'https://rickandmortyapi.com/graphql',
   );
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setAddress(urlAddress));
+  }, [urlAddress, dispatch]);
 
   const handleSubmit = async () => {
     if (!graphRequest) {
