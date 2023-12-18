@@ -4,7 +4,7 @@ import { ITypeQuery } from './interfaces';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './Docs.module.scss';
 import { useAppSelector } from '@/store';
-import { docsApi } from '@/api/docsApi';
+import { docsApi } from '@/api/docsApi/docsApi';
 
 const Docs = () => {
   const { t } = useLanguage();
