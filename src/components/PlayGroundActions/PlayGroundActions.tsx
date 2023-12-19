@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import { IPlayGroundActionsProps } from './PlayGroundActions.types';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setIsDocsShown } from '@/store/reducers/docsSlice';
+import { selectIsDocsShown, setIsDocsShown } from '@/store/reducers/docsSlice';
 
 const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   handleSubmit,
@@ -15,7 +15,7 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   setUrlAddress,
 }): JSX.Element => {
   const inputId = useId();
-  const { isDocsShown } = useAppSelector((state) => state.docs);
+  const isDocsShown = useAppSelector(selectIsDocsShown);
   const dispatch = useAppDispatch();
 
   const onDocsClick = () => {

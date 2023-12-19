@@ -5,11 +5,12 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './Docs.module.scss';
 import { useAppSelector } from '@/store';
 import { useGetDocsQuery, useLazyGetTypeQuery } from '@/api/docsApi/docsApi';
+import { selectAddress } from '@/store/reducers/addressSlice';
 
 const Docs = () => {
   const { t } = useLanguage();
 
-  const { url } = useAppSelector((state) => state.address);
+  const { url } = useAppSelector(selectAddress);
   const [queryTypes, setQueryTypes] = useState<ITypeQuery[]>([]);
 
   const { data: docs, isError: isDocsError } = useGetDocsQuery(url);

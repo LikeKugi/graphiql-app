@@ -12,6 +12,7 @@ import PlayGroundResizer from '@/components/PlayGroundResizer/PlayGroundResizer'
 import { IPlayGroundProps } from './PlayGround.types';
 import { useAppSelector } from '@/store';
 import Docs from '@/components/Docs/Docs';
+import { selectIsDocsShown } from '@/store/reducers/docsSlice';
 
 const PlayGround: FC<IPlayGroundProps> = ({
   headersRequest,
@@ -22,7 +23,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
   setGraphRequest,
   jsonResponse,
 }): JSX.Element => {
-  const { isDocsShown } = useAppSelector((state) => state.docs);
+  const isDocsShown = useAppSelector(selectIsDocsShown);
   const [currentTab, setCurrentTab] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
