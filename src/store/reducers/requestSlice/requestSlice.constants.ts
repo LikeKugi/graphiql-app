@@ -9,8 +9,10 @@ export const initialGraphQL = `query {
   }
   location(id: 1) {
     id
+    name
   }
   episodesByIds(ids: [1, 2]) {
     id
+    name
   }
 }`;
