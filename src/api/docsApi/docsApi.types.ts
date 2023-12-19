@@ -13,3 +13,12 @@ export interface ITypeResp {
     __type: ITypeQuery;
   };
 }
+
+export interface IBaseRequest {
+  url: string;
+  headers: object;
+}
+
+export interface IGetTypeRequest extends IBaseRequest {
+  type: string;
+}

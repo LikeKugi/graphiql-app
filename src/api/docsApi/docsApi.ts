@@ -1,16 +1,22 @@
 import { ITypeQuery } from '@/types';
 import { api } from '../api';
 import { introspectionQuery } from '@/constants/introspectionQuery';
-import { IDocsResp, ITypeResp } from './docsApi.types';
+import {
+  IBaseRequest,
+  IDocsResp,
+  IGetTypeRequest,
+  ITypeResp,
+} from './docsApi.types';
 
 export const docsApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getDocs: build.query<ITypeQuery[], string>({
-      query(url) {
+    getDocs: build.query<ITypeQuery[], IBaseRequest>({
+      query({ url, headers }) {
         return {
           url,
           method: 'POST',
           headers: {
+            ...headers,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ query: introspectionQuery }),
@@ -22,8 +28,8 @@ export const docsApi = api.injectEndpoints({
         ),
     }),
 
-    getType: build.query<ITypeResp, { url: string; type: string }>({
-      query({ url, type }) {
+    getType: build.query<ITypeResp, IGetTypeRequest>({
+      query({ url, type, headers }) {
         const typeQuery = `{
           __type(name: "${type}") {
             name
@@ -51,6 +57,7 @@ export const docsApi = api.injectEndpoints({
           url,
           method: 'POST',
           headers: {
+            ...headers,
             'Content-Type': 'application/json',
           },
           body,

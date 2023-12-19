@@ -27,9 +27,13 @@ const MainPage = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async () => {
-    dispatch(setGraphQL(graphRequest));
+  const saveHeadersRequest = () => {
     dispatch(setHeaders(headersRequest));
+  };
+
+  const handleSubmit = async () => {
+    saveHeadersRequest();
+    dispatch(setGraphQL(graphRequest));
     dispatch(setVariables(variablesRequest));
     dispatch(setAddress(urlAddress));
     setJsonResponse('');
@@ -51,7 +55,6 @@ const MainPage = (): JSX.Element => {
       .replace(/\\n/g, '')
       .replace(/\s+/g, ' ');
     const headers = headersRequest ? JSON.parse(headersRequest) : '';
-
     const response = await fetch(urlAddress, {
       method: 'POST',
       headers: {
@@ -92,6 +95,7 @@ const MainPage = (): JSX.Element => {
         setGraphRequest={setGraphRequest}
         setHeadersRequest={setHeadersRequest}
         setVariablesRequest={setVariablesRequest}
+        saveHeadersRequest={saveHeadersRequest}
       />
     </div>
   );

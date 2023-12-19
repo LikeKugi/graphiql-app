@@ -8,4 +8,5 @@ export interface IPlayGroundProps {
   setGraphRequest: Dispatch<SetStateAction<string>>;
   setHeadersRequest: Dispatch<SetStateAction<string>>;
   setVariablesRequest: Dispatch<SetStateAction<string>>;
+  saveHeadersRequest: () => void;
 }

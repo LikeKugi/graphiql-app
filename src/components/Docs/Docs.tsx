@@ -6,18 +6,24 @@ import styles from './Docs.module.scss';
 import { useAppSelector } from '@/store';
 import { useGetDocsQuery, useLazyGetTypeQuery } from '@/api/docsApi/docsApi';
 import { selectAddress } from '@/store/reducers/addressSlice';
+import { selectHeaders } from '@/store/reducers/requestSlice';
+import { makeObjectFromStr } from '@/utils/makeObjectFromStr';
 
 const Docs = () => {
   const { t } = useLanguage();
 
   const { url } = useAppSelector(selectAddress);
+  const headers = makeObjectFromStr(useAppSelector(selectHeaders));
   const [queryTypes, setQueryTypes] = useState<ITypeQuery[]>([]);
 
-  const { data: docs, isError: isDocsError } = useGetDocsQuery(url);
+  const { data: docs, isError: isDocsError } = useGetDocsQuery({
+    url,
+    headers,
+  });
   const [fetchType, { isError: isTypeError }] = useLazyGetTypeQuery();
 
   const getCurType = async (type: string) => {
-    const data = await fetchType({ url, type });
+    const data = await fetchType({ url, type, headers });
     if (data.data) {
       const newType = data.data.data.__type;
       setQueryTypes([...queryTypes, newType]);

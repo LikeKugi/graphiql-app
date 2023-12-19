@@ -1,7 +1,7 @@
 import React, { FC, JSX, lazy, Suspense, useId, useState } from 'react';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 import styles from './PlayGround.module.scss';
-import { Box, Tab, Tabs } from '@mui/material';
+import { Stack, Tab, Tabs } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { graphql } from 'cm6-graphql';
@@ -24,6 +24,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
   graphRequest,
   setGraphRequest,
   jsonResponse,
+  saveHeadersRequest,
 }): JSX.Element => {
   const isDocsShown = useAppSelector(selectIsDocsShown);
   const [currentTab, setCurrentTab] = useState(0);
@@ -95,28 +96,33 @@ const PlayGround: FC<IPlayGroundProps> = ({
               minSize={10}
               collapsible
             >
-              <Box hidden={currentTab !== 0} p={1} flexGrow={1}>
-                <CodeMirror
-                  className={styles.PlayGround__CodeMirror}
-                  value={variablesRequest}
-                  height="100%"
-                  onChange={(value) => {
-                    setVariablesRequest(value);
-                  }}
-                  extensions={[langs.json(), EditorView.lineWrapping]}
-                />
-              </Box>
-              <Box hidden={currentTab !== 1} p={0.5} flexGrow={1}>
-                <CodeMirror
-                  className={styles.PlayGround__CodeMirror}
-                  value={headersRequest}
-                  height="100%"
-                  onChange={(value) => {
-                    setHeadersRequest(value);
-                  }}
-                  extensions={[langs.json(), EditorView.lineWrapping]}
-                />
-              </Box>
+              {currentTab === 0 && (
+                <Stack p={1} flexGrow={1}>
+                  <CodeMirror
+                    className={styles.PlayGround__CodeMirror}
+                    value={variablesRequest}
+                    height="100%"
+                    onChange={(value) => {
+                      setVariablesRequest(value);
+                    }}
+                    extensions={[langs.json(), EditorView.lineWrapping]}
+                  />
+                </Stack>
+              )}
+              {currentTab === 1 && (
+                <Stack p={0.5} flexGrow={1}>
+                  <CodeMirror
+                    className={styles.PlayGround__CodeMirror}
+                    value={headersRequest}
+                    height="100%"
+                    onChange={(value) => {
+                      setHeadersRequest(value);
+                    }}
+                    onBlur={saveHeadersRequest}
+                    extensions={[langs.json(), EditorView.lineWrapping]}
+                  />
+                </Stack>
+              )}
             </Panel>
           </PanelGroup>
         </Panel>
