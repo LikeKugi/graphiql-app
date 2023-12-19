@@ -1,4 +1,4 @@
-import { FC, JSX, useState } from 'react';
+import { FC, JSX, useId, useState } from 'react';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 import styles from './PlayGround.module.scss';
 import { Box, Tab, Tabs } from '@mui/material';
@@ -13,6 +13,7 @@ import { IPlayGroundProps } from './PlayGround.types';
 import { useAppSelector } from '@/store';
 import Docs from '@/components/Docs/Docs';
 import { selectIsDocsShown } from '@/store/reducers/docsSlice';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const PlayGround: FC<IPlayGroundProps> = ({
   headersRequest,
@@ -25,6 +26,9 @@ const PlayGround: FC<IPlayGroundProps> = ({
 }): JSX.Element => {
   const isDocsShown = useAppSelector(selectIsDocsShown);
   const [currentTab, setCurrentTab] = useState(0);
+  const { t } = useLanguage();
+
+  const panelId = useId();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
@@ -38,7 +42,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
           <>
             <Panel
               order={1}
-              id="panel_1"
+              id={`${panelId}_1`}
               minSize={5}
               collapsible
               className={styles.PlayGround__panel}
@@ -46,13 +50,13 @@ const PlayGround: FC<IPlayGroundProps> = ({
               <Docs />
             </Panel>
             <PlayGroundResizer
-              label={<SwapVertIcon fontSize="small" />}
+              label={<SwapHorizIcon fontSize="small" />}
               orientation="vertical"
             />
           </>
         )}
         <Panel
-          id="panel_2"
+          id={`${panelId}_2`}
           order={2}
           className={styles.PlayGround__panel}
           minSize={5}
@@ -61,7 +65,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
           <PanelGroup direction={'vertical'}>
             <Panel
               order={3}
-              id="panel_2.1"
+              id={`${panelId}_2.1`}
               className={styles.PlayGround__panel}
               minSize={5}
               collapsible
@@ -78,11 +82,11 @@ const PlayGround: FC<IPlayGroundProps> = ({
             </Panel>
             <PlayGroundResizer label={<SwapVertIcon fontSize="small" />} />
             <Tabs value={currentTab} onChange={handleChange}>
-              <Tab label={'Variables'} />
-              <Tab label={'Headers'} />
+              <Tab label={t('playground.variables')} />
+              <Tab label={t('playground.headers')} />
             </Tabs>
             <Panel
-              id="panel_2.2"
+              id={`${panelId}_2.2`}
               order={4}
               className={styles.PlayGround__panel}
               minSize={10}
@@ -118,7 +122,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
           orientation="vertical"
         />
         <Panel
-          id="panel_3"
+          id={`${panelId}_3`}
           order={5}
           minSize={5}
           collapsible
