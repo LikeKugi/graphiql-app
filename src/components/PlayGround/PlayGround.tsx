@@ -1,4 +1,4 @@
-import { FC, JSX, useId, useState } from 'react';
+import React, { FC, JSX, lazy, Suspense, useId, useState } from 'react';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 import styles from './PlayGround.module.scss';
 import { Box, Tab, Tabs } from '@mui/material';
@@ -11,9 +11,10 @@ import CodeMirror from '@uiw/react-codemirror';
 import PlayGroundResizer from '@/components/PlayGroundResizer/PlayGroundResizer';
 import { IPlayGroundProps } from './PlayGround.types';
 import { useAppSelector } from '@/store';
-import Docs from '@/components/Docs/Docs';
 import { selectIsDocsShown } from '@/store/reducers/docsSlice';
 import { useLanguage } from '@/contexts/LanguageContext';
+
+const Docs = lazy(() => import('@/components/Docs/Docs'));
 
 const PlayGround: FC<IPlayGroundProps> = ({
   headersRequest,
@@ -47,7 +48,9 @@ const PlayGround: FC<IPlayGroundProps> = ({
               collapsible
               className={styles.PlayGround__panel}
             >
-              <Docs />
+              <Suspense fallback={''}>
+                <Docs />
+              </Suspense>
             </Panel>
             <PlayGroundResizer
               label={<SwapHorizIcon fontSize="small" />}
