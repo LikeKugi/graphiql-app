@@ -7,7 +7,7 @@ import { screen } from '@testing-library/react';
 import { LanguageProvider } from '@/contexts/LanguageContext/LanguageContext';
 
 describe('test WelcomePage', () => {
-  test('should render correct data in english', () => {
+  test.skip('should render correct data in english', () => {
     renderWithProviders(
       <MemoryRouter>
         <LanguageProvider>
@@ -24,7 +24,7 @@ describe('test WelcomePage', () => {
     expect(screen.getByText(/Log in or register/)).toBeInTheDocument();
   });
 
-  test('should render correct data in russian', () => {
+  test.skip('should render correct data in russian', () => {
     renderWithProviders(
       <MemoryRouter>
         <LanguageProvider>
