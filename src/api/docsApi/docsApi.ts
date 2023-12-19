@@ -59,3 +59,6 @@ export const docsApi = api.injectEndpoints({
     }),
   }),
 });
+
+export const { useLazyGetDocsQuery, useLazyGetTypeQuery, useGetDocsQuery } =
+  docsApi;
