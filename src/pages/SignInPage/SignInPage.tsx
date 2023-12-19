@@ -41,7 +41,11 @@ const SignInPage = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (error) console.log(error);
+    if (error) {
+      setErrorMessage(error.message);
+    } else {
+      setErrorMessage('');
+    }
   }, [error]);
 
   if (user && !user.isAnonymous) {
