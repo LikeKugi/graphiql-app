@@ -1,4 +1,4 @@
-import { PasswordColors, PasswordStrength } from './types';
+import { PasswordColors, PasswordStrength } from './PasswordMeter.types';
 
 export function getPasswordStrengthLevel(
   value: PasswordStrength,

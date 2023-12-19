@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { ITypeQuery } from './interfaces';
+import { ITypeQuery } from '@/types';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './Docs.module.scss';
 import { useAppSelector } from '@/store';

@@ -1,7 +1,7 @@
-import { ITypeQuery } from '@/components/Docs/interfaces';
+import { ITypeQuery } from '@/types';
 import { api } from '../api';
-import { introspectionQuery } from '@/components/Docs/introspectionQuery.constant';
-import { IDocsResp, ITypeResp } from './interfaces';
+import { introspectionQuery } from '@/constants/introspectionQuery';
+import { IDocsResp, ITypeResp } from './docsApi.types';
 
 export const docsApi = api.injectEndpoints({
   endpoints: (build) => ({

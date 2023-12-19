@@ -2,10 +2,10 @@ import { describe, expect, test } from 'vitest';
 import { act, screen } from '@testing-library/react';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import Header from '@/components/Header/Header';
-import { languageConstant } from '@/constants/language/language.constant';
+import { languageConstants } from '@/constants/language/language.constants';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { LanguageProvider } from '@/contexts/LanguageContext';
+import { LanguageProvider } from '@/contexts/LanguageContext/LanguageContext';
 
 describe('test Header component', () => {
   test('should render correct data with english', () => {
@@ -16,7 +16,7 @@ describe('test Header component', () => {
         </LanguageProvider>
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: languageConstant.EN } },
+        preloadedState: { lang: { lang: languageConstants.EN } },
       },
     );
 
@@ -34,7 +34,7 @@ describe('test Header component', () => {
         </LanguageProvider>
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: languageConstant.RU } },
+        preloadedState: { lang: { lang: languageConstants.RU } },
       },
     );
 
@@ -52,7 +52,7 @@ describe('test Header component', () => {
         </LanguageProvider>
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: languageConstant.EN } },
+        preloadedState: { lang: { lang: languageConstants.EN } },
       },
     );
 

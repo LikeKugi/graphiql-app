@@ -25,7 +25,7 @@ export default defineConfig({
       reporter: ['text', 'html'],
       reportsDirectory: './tests/unit/coverage',
       include: ['src/**'],
-      exclude: [...coverageConfigDefaults.exclude, 'src/main.tsx', 'src/**/*.d.ts', 'src/**/*.types.ts'],
+      exclude: [...coverageConfigDefaults.exclude, 'src/main.tsx', 'src/**/*.d.ts', 'src/**/*.PasswordMeter.types.ts'],
     },
     css: false,
   },

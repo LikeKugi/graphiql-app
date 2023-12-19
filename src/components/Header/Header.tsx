@@ -12,7 +12,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { languageConstant } from '@/constants/language/language.constant';
+import { languageConstants } from '@/constants/language';
 import { auth, logout } from '@/lib/firebase';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLogout } from '@/hooks/useLogout';
@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   const handleSelect = (e: SelectChangeEvent) => {
-    setLang(e.target.value as languageConstant);
+    setLang(e.target.value as languageConstants);
   };
 
   useEffect(() => {
@@ -68,8 +68,8 @@ const Header = () => {
             value={lang}
             label="language"
           >
-            <MenuItem value={languageConstant.EN}>English</MenuItem>
-            <MenuItem value={languageConstant.RU}>Русский</MenuItem>
+            <MenuItem value={languageConstants.EN}>English</MenuItem>
+            <MenuItem value={languageConstants.RU}>Русский</MenuItem>
           </Select>
         </FormControl>
         <div className={styles.header__buttons}>

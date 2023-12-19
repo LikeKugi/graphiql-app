@@ -1,4 +1,4 @@
-import { ITypeQuery } from '@/components/Docs/interfaces';
+import { ITypeQuery } from '@/types';
 
 export interface IDocsResp {
   data: {

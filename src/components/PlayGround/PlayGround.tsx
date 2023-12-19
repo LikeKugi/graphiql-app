@@ -9,9 +9,9 @@ import { EditorView } from '@codemirror/view';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import CodeMirror from '@uiw/react-codemirror';
 import PlayGroundResizer from '@/components/PlayGroundResizer/PlayGroundResizer';
-import { IPlayGroundProps } from '@/components/PlayGround/PlayGround.types';
+import { IPlayGroundProps } from './PlayGround.types';
 import { useAppSelector } from '@/store';
-import Docs from '../Docs/Docs';
+import Docs from '@/components/Docs/Docs';
 
 const PlayGround: FC<IPlayGroundProps> = ({
   headersRequest,

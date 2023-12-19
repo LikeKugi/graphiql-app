@@ -2,9 +2,9 @@ import { describe } from 'vitest';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import WelcomePage from '@/pages/WelcomePage/WelcomePage';
 import { MemoryRouter } from 'react-router-dom';
-import { languageConstant } from '@/constants/language/language.constant';
+import { languageConstants } from '@/constants/language/language.constants';
 import { screen } from '@testing-library/react';
-import { LanguageProvider } from '@/contexts/LanguageContext';
+import { LanguageProvider } from '@/contexts/LanguageContext/LanguageContext';
 
 describe('test WelcomePage', () => {
   test('should render correct data in english', () => {
@@ -15,7 +15,7 @@ describe('test WelcomePage', () => {
         </LanguageProvider>
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: languageConstant.EN } },
+        preloadedState: { lang: { lang: languageConstants.EN } },
       },
     );
 
@@ -32,7 +32,7 @@ describe('test WelcomePage', () => {
         </LanguageProvider>
       </MemoryRouter>,
       {
-        preloadedState: { lang: { lang: languageConstant.RU } },
+        preloadedState: { lang: { lang: languageConstants.RU } },
       },
     );
 

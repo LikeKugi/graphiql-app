@@ -2,7 +2,7 @@ import './App.css';
 import AppRouter from '@/routes/AppRouter/AppRouter';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
-import { LanguageProvider } from './contexts/LanguageContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 function App() {
   return (

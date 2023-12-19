@@ -3,7 +3,7 @@ import { Button, Container, TextField } from '@mui/material';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Grid from '@mui/material/Grid';
-import { IPlayGroundActionsProps } from '@/components/PlayGroundActions/PlayGroundActions.types';
+import { IPlayGroundActionsProps } from './PlayGroundActions.types';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { setIsDocsShown } from '@/store/reducers/docsSlice';
