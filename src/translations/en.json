@@ -34,5 +34,6 @@
   "docs.allSchema": "All Schema Types",
   "docs.error": "Oops, something went wrong. Failed to fetch.",
   "playground.variables": "Variables",
-  "playground.headers": "Headers"
+  "playground.headers": "Headers",
+  "playground.actions.url": "URL GraphQL"
 }

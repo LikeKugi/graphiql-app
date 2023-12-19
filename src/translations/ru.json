@@ -34,5 +34,6 @@
   "docs.allSchema": "Все типы схем",
   "docs.error": "Что-то пошло не так. Ошибка во время загрузки.",
   "playground.variables": "Переменные",
-  "playground.headers": "Заголовки"
+  "playground.headers": "Заголовки",
+  "playground.actions.url": "URL адрес GraphQL"
 }
