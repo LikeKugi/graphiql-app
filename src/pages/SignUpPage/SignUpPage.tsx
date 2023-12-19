@@ -20,7 +20,7 @@ import PasswordMeterInput from '@/components/PasswordMeter/PasswordMeter';
 import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ISignUpFormData } from './interfaces';
+import { ISignUpFormData } from './SignUpPage.types';
 
 const SignUpPage = (): JSX.Element => {
   const { t } = useLanguage();

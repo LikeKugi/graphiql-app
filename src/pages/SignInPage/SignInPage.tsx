@@ -19,7 +19,7 @@ import * as yup from 'yup';
 import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ISignInFormData } from './interfaces';
+import { ISignInFormData } from './SignInPage.types';
 
 const SignInPage = (): JSX.Element => {
   const { t } = useLanguage();
