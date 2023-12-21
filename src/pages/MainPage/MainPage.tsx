@@ -1,7 +1,7 @@
 import { JSX, useState } from 'react';
 import PlayGround from '@/components/PlayGround/PlayGround';
 import PlayGroundActions from '@/components/PlayGroundActions/PlayGroundActions';
-import { prettifyJSON, prettifyJSONObject } from '@/utils/prettifyJSON';
+import { prettifyJSON } from '@/utils/prettifyJSON';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { selectAddress, setAddress } from '@/store/reducers/addressSlice';
 import {
@@ -12,20 +12,24 @@ import {
   setHeaders,
   setVariables,
 } from '@/store/reducers/requestSlice';
+import { useGetGraphQLRequestMutation } from '@/api/graphApi/graphApi';
+import { selectJSON, setJson } from '@/store/reducers/responseSlice';
 
 const MainPage = (): JSX.Element => {
   const { url: initialURL } = useAppSelector(selectAddress);
   const initialGraphQL = useAppSelector(selectGraphQL);
   const initialVariables = useAppSelector(selectVariables);
   const initialHeaders = useAppSelector(selectHeaders);
+  const jsonResponse = useAppSelector(selectJSON);
 
   const [graphRequest, setGraphRequest] = useState(initialGraphQL);
   const [variablesRequest, setVariablesRequest] = useState(initialVariables);
   const [headersRequest, setHeadersRequest] = useState(initialHeaders);
-  const [jsonResponse, setJsonResponse] = useState('');
   const [urlAddress, setUrlAddress] = useState(initialURL);
 
   const dispatch = useAppDispatch();
+
+  const [fetchGraphQL] = useGetGraphQLRequestMutation();
 
   const saveHeadersRequest = () => {
     dispatch(setHeaders(headersRequest));
@@ -36,7 +40,6 @@ const MainPage = (): JSX.Element => {
     dispatch(setGraphQL(graphRequest));
     dispatch(setVariables(variablesRequest));
     dispatch(setAddress(urlAddress));
-    setJsonResponse('');
     if (!urlAddress) return;
     const bodyObject: Record<string, string | object> = {};
     if (graphRequest) {
@@ -55,27 +58,22 @@ const MainPage = (): JSX.Element => {
       .replace(/\\n/g, '')
       .replace(/\s+/g, ' ');
     const headers = headersRequest ? JSON.parse(headersRequest) : '';
-    const response = await fetch(urlAddress, {
-      method: 'POST',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      body,
-    });
-    const data = await response.json();
-    setJsonResponse(prettifyJSONObject(data));
+    fetchGraphQL({ url: urlAddress, headers, body });
   };
 
   const handlePrettify = () => {
     if (variablesRequest) {
-      setVariablesRequest(prettifyJSON(variablesRequest));
+      const variable = prettifyJSON(variablesRequest);
+      setVariablesRequest(variable);
+      dispatch(setVariables(variable));
     }
     if (headersRequest) {
-      setHeadersRequest(prettifyJSON(headersRequest));
+      const header = prettifyJSON(headersRequest);
+      setHeadersRequest(header);
+      dispatch(setHeaders(header));
     }
     if (jsonResponse) {
-      setJsonResponse(prettifyJSON(jsonResponse));
+      dispatch(setJson(prettifyJSON(jsonResponse)));
     }
   };
 
