@@ -1,23 +1,38 @@
-import { describe, expect, test } from 'vitest';
-import { act, screen } from '@testing-library/react';
+import { afterEach, describe, expect, test } from 'vitest';
+import { act, cleanup, screen } from '@testing-library/react';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import Header from '@/components/Header/Header';
-import { languageConstants } from '@/constants/language/language.constants';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { LanguageProvider } from '@/contexts/LanguageContext/LanguageContext';
 
+import * as Firebase from 'react-firebase-hooks/auth';
+import * as Language from '@/contexts/LanguageContext';
+import { User } from '@/__test__/types/User.types';
+
 describe('test Header component', () => {
-  test.skip('should render correct data with english', () => {
+  const authSpy = vi.spyOn(Firebase, 'useAuthState');
+  const langSpy = vi.spyOn(Language, 'useLanguage');
+
+  afterEach(() => {
+    cleanup();
+    authSpy.mockClear();
+    langSpy.mockClear();
+  });
+
+  test('should render correct data with english', () => {
+    authSpy.mockReturnValue([
+      {} as unknown as User,
+      false,
+      {} as unknown as Error,
+    ]);
+
     renderWithProviders(
       <MemoryRouter>
         <LanguageProvider>
           <Header />
         </LanguageProvider>
       </MemoryRouter>,
-      {
-        preloadedState: { lang: { lang: languageConstants.EN } },
-      },
     );
 
     expect(screen.getAllByText(/language/i)).toHaveLength(2);
@@ -27,15 +42,18 @@ describe('test Header component', () => {
   });
 
   test.skip('should render correct data with russian', () => {
+    authSpy.mockReturnValue([
+      {} as unknown as User,
+      false,
+      {} as unknown as Error,
+    ]);
+
     renderWithProviders(
       <MemoryRouter>
         <LanguageProvider>
           <Header />
         </LanguageProvider>
       </MemoryRouter>,
-      {
-        preloadedState: { lang: { lang: languageConstants.RU } },
-      },
     );
 
     expect(screen.getAllByText(/Язык/i)).toHaveLength(1);
@@ -45,15 +63,17 @@ describe('test Header component', () => {
   });
 
   test.skip('should change language', async () => {
+    authSpy.mockReturnValue([
+      {} as unknown as User,
+      false,
+      {} as unknown as Error,
+    ]);
     renderWithProviders(
       <MemoryRouter>
         <LanguageProvider>
           <Header />
         </LanguageProvider>
       </MemoryRouter>,
-      {
-        preloadedState: { lang: { lang: languageConstants.EN } },
-      },
     );
 
     const selectButton = screen.getByRole('combobox');
