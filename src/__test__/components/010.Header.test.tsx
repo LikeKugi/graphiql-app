@@ -41,12 +41,8 @@ describe('test Header component', () => {
     expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
   });
 
-  test.skip('should render correct data with russian', () => {
-    authSpy.mockReturnValue([
-      {} as unknown as User,
-      false,
-      {} as unknown as Error,
-    ]);
+  it('should render correct data when no user provided', function () {
+    authSpy.mockReturnValue([null, false, {} as unknown as Error]);
 
     renderWithProviders(
       <MemoryRouter>
@@ -56,13 +52,11 @@ describe('test Header component', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getAllByText(/Язык/i)).toHaveLength(1);
-    expect(screen.getByText(/Русский/i)).toBeInTheDocument();
-    expect(screen.getByText(/Домой/i)).toBeInTheDocument();
-    expect(screen.getByText(/Выйти/i)).toBeInTheDocument();
+    expect(screen.getByText(/sign\sin/i)).toBeInTheDocument();
+    expect(screen.getByText(/sign\sup/i)).toBeInTheDocument();
   });
 
-  test.skip('should change language', async () => {
+  test('should change language and render correct data with russian', async () => {
     authSpy.mockReturnValue([
       {} as unknown as User,
       false,
@@ -89,7 +83,7 @@ describe('test Header component', () => {
     });
 
     expect(await screen.findByText(/Русский/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Домой/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Главная/i)).toBeInTheDocument();
     expect(await screen.findByText(/Выйти/i)).toBeInTheDocument();
   });
 });
