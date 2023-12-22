@@ -21,21 +21,28 @@ const WelcomePage = (): JSX.Element => {
           </Typography>
           <Box className={styles.welcome__links}>
             {user ? (
-              <Link to={RouterConstants.MAIN}>
-                <Button size="large">{t('welcome.linkMain')}</Button>
-              </Link>
+              <Button size="large" component={Link} to={RouterConstants.MAIN}>
+                {t('welcome.linkMain')}
+              </Button>
             ) : (
               <>
-                <Link to={RouterConstants.SIGNIN}>
-                  <Button size="large" variant="text">
-                    {t('welcome.linkSignIn')}
-                  </Button>
-                </Link>
-                <Link to={RouterConstants.SIGNUP}>
-                  <Button size="large" variant="text">
-                    {t('welcome.linkSignUp')}
-                  </Button>
-                </Link>
+                <Button
+                  size="large"
+                  variant="text"
+                  component={Link}
+                  to={RouterConstants.SIGNIN}
+                >
+                  {t('welcome.linkSignIn')}
+                </Button>
+
+                <Button
+                  size="large"
+                  variant="text"
+                  component={Link}
+                  to={RouterConstants.SIGNUP}
+                >
+                  {t('welcome.linkSignUp')}
+                </Button>
               </>
             )}
           </Box>

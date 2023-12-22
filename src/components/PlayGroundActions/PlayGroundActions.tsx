@@ -3,10 +3,11 @@ import { Button, Container, TextField } from '@mui/material';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Grid from '@mui/material/Grid';
-import { IPlayGroundActionsProps } from '@/components/PlayGroundActions/PlayGroundActions.types';
+import { IPlayGroundActionsProps } from './PlayGroundActions.types';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setIsDocsShown } from '@/store/reducers/docsSlice';
+import { selectIsDocsShown, setIsDocsShown } from '@/store/reducers/docsSlice';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   handleSubmit,
@@ -15,8 +16,9 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   setUrlAddress,
 }): JSX.Element => {
   const inputId = useId();
-  const { isDocsShown } = useAppSelector((state) => state.docs);
+  const isDocsShown = useAppSelector(selectIsDocsShown);
   const dispatch = useAppDispatch();
+  const { t } = useLanguage();
 
   const onDocsClick = () => {
     dispatch(setIsDocsShown(!isDocsShown));
@@ -25,8 +27,8 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   return (
     <Container maxWidth={'xl'}>
       <Grid container spacing={1.5}>
-        <Grid item xs={4} md={1} onClick={onDocsClick}>
-          <Button variant="text" onClick={handlePrettify}>
+        <Grid item xs={4} md={1}>
+          <Button variant="text" onClick={onDocsClick}>
             <DescriptionIcon />
           </Button>
         </Grid>
@@ -40,11 +42,11 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
             <PlayCircleOutlineIcon />
           </Button>
         </Grid>
-        <Grid item xs={12} md={10}>
+        <Grid item xs={12} md={9}>
           <TextField
             required
             id={inputId}
-            label="URL GraphQL"
+            label={t('playground.actions.url')}
             fullWidth
             value={urlAddress}
             onChange={(e) => setUrlAddress(e.target.value)}

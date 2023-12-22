@@ -1,22 +1,29 @@
 import { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { ITypeQuery } from './interfaces';
+import { ITypeQuery } from '@/types';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './Docs.module.scss';
 import { useAppSelector } from '@/store';
-import { docsApi } from '@/api/docsApi/docsApi';
+import { useGetDocsQuery, useLazyGetTypeQuery } from '@/api/docsApi/docsApi';
+import { selectAddress } from '@/store/reducers/addressSlice';
+import { selectHeaders } from '@/store/reducers/requestSlice';
+import { makeObjectFromStr } from '@/utils/makeObjectFromStr';
 
 const Docs = () => {
   const { t } = useLanguage();
 
-  const { url } = useAppSelector((state) => state.address);
+  const { url } = useAppSelector(selectAddress);
+  const headers = makeObjectFromStr(useAppSelector(selectHeaders));
   const [queryTypes, setQueryTypes] = useState<ITypeQuery[]>([]);
 
-  const { data: docs, isError: isDocsError } = docsApi.useGetDocsQuery(url);
-  const [fetchType, { isError: isTypeError }] = docsApi.useLazyGetTypeQuery();
+  const { data: docs, isError: isDocsError } = useGetDocsQuery({
+    url,
+    headers,
+  });
+  const [fetchType, { isError: isTypeError }] = useLazyGetTypeQuery();
 
   const getCurType = async (type: string) => {
-    const data = await fetchType({ url, type });
+    const data = await fetchType({ url, type, headers });
     if (data.data) {
       const newType = data.data.data.__type;
       setQueryTypes([...queryTypes, newType]);

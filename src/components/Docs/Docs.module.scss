@@ -1,12 +1,12 @@
 .docs {
   overflow: auto;
-}
 
-.docs__text_type {
-  cursor: pointer;
-  color: orange;
+  &__text_type {
+    cursor: pointer;
+    color: orange;
 
-  &:hover {
-    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

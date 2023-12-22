@@ -1,33 +1,50 @@
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useState } from 'react';
 import PlayGround from '@/components/PlayGround/PlayGround';
 import PlayGroundActions from '@/components/PlayGroundActions/PlayGroundActions';
-import { prettifyJSON, prettifyJSONObject } from '@/utils/prettifyJSON';
-import { useAppDispatch } from '@/store';
-import { setAddress } from '@/store/reducers/addressSlice';
+import { prettifyJSON } from '@/utils/prettifyJSON';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { selectAddress, setAddress } from '@/store/reducers/addressSlice';
+import {
+  selectGraphQL,
+  selectHeaders,
+  selectVariables,
+  setGraphQL,
+  setHeaders,
+  setVariables,
+} from '@/store/reducers/requestSlice';
+import { useGetGraphQLRequestMutation } from '@/api/graphApi/graphApi';
+import { selectJSON, setJson } from '@/store/reducers/responseSlice';
 
 const MainPage = (): JSX.Element => {
-  const [graphRequest, setGraphRequest] = useState('');
-  const [variablesRequest, setVariablesRequest] = useState('');
-  const [headersRequest, setHeadersRequest] = useState('');
-  const [jsonResponse, setJsonResponse] = useState('');
-  const [urlAddress, setUrlAddress] = useState(
-    'https://rickandmortyapi.com/graphql',
-  );
+  const { url: initialURL } = useAppSelector(selectAddress);
+  const initialGraphQL = useAppSelector(selectGraphQL);
+  const initialVariables = useAppSelector(selectVariables);
+  const initialHeaders = useAppSelector(selectHeaders);
+  const jsonResponse = useAppSelector(selectJSON);
+
+  const [graphRequest, setGraphRequest] = useState(initialGraphQL);
+  const [variablesRequest, setVariablesRequest] = useState(initialVariables);
+  const [headersRequest, setHeadersRequest] = useState(initialHeaders);
+  const [urlAddress, setUrlAddress] = useState(initialURL);
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(setAddress(urlAddress));
-  }, [urlAddress, dispatch]);
+
+  const [fetchGraphQL] = useGetGraphQLRequestMutation();
+
+  const saveHeadersRequest = () => {
+    dispatch(setHeaders(headersRequest));
+  };
 
   const handleSubmit = async () => {
-    if (!graphRequest) {
-      return;
+    saveHeadersRequest();
+    dispatch(setGraphQL(graphRequest));
+    dispatch(setVariables(variablesRequest));
+    dispatch(setAddress(urlAddress));
+    if (!urlAddress) return;
+    const bodyObject: Record<string, string | object> = {};
+    if (graphRequest) {
+      bodyObject.query = graphRequest;
     }
-    setJsonResponse('');
-    const address = urlAddress || 'https://rickandmortyapi.com/graphql';
-    const bodyObject: { query: string; variables?: object } = {
-      query: graphRequest,
-    };
     let variables: object | null;
     try {
       variables = JSON.parse(variablesRequest);
@@ -41,28 +58,22 @@ const MainPage = (): JSX.Element => {
       .replace(/\\n/g, '')
       .replace(/\s+/g, ' ');
     const headers = headersRequest ? JSON.parse(headersRequest) : '';
-
-    const response = await fetch(address, {
-      method: 'POST',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      body,
-    });
-    const data = await response.json();
-    setJsonResponse(prettifyJSONObject(data));
+    fetchGraphQL({ url: urlAddress, headers, body });
   };
 
   const handlePrettify = () => {
     if (variablesRequest) {
-      setVariablesRequest(prettifyJSON(variablesRequest));
+      const variable = prettifyJSON(variablesRequest);
+      setVariablesRequest(variable);
+      dispatch(setVariables(variable));
     }
     if (headersRequest) {
-      setHeadersRequest(prettifyJSON(headersRequest));
+      const header = prettifyJSON(headersRequest);
+      setHeadersRequest(header);
+      dispatch(setHeaders(header));
     }
     if (jsonResponse) {
-      setJsonResponse(prettifyJSON(jsonResponse));
+      dispatch(setJson(prettifyJSON(jsonResponse)));
     }
   };
 
@@ -82,6 +93,7 @@ const MainPage = (): JSX.Element => {
         setGraphRequest={setGraphRequest}
         setHeadersRequest={setHeadersRequest}
         setVariablesRequest={setVariablesRequest}
+        saveHeadersRequest={saveHeadersRequest}
       />
     </div>
   );

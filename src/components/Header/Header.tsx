@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useEffect, useId, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { RouterConstants } from '@/constants/routes';
 import {
@@ -12,7 +12,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { languageConstant } from '@/constants/language/language.constant';
+import { languageConstants } from '@/constants/language';
 import { auth, logout } from '@/lib/firebase';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLogout } from '@/hooks/useLogout';
@@ -24,7 +24,6 @@ const Header = () => {
 
   const [isSticky, setIsSticky] = useState(false);
 
-  const navigate = useNavigate();
   const selectId = useId();
 
   const [user] = useAuthState(auth);
@@ -36,7 +35,7 @@ const Header = () => {
   };
 
   const handleSelect = (e: SelectChangeEvent) => {
-    setLang(e.target.value as languageConstant);
+    setLang(e.target.value as languageConstants);
   };
 
   useEffect(() => {
@@ -68,8 +67,8 @@ const Header = () => {
             value={lang}
             label="language"
           >
-            <MenuItem value={languageConstant.EN}>English</MenuItem>
-            <MenuItem value={languageConstant.RU}>Русский</MenuItem>
+            <MenuItem value={languageConstants.EN}>English</MenuItem>
+            <MenuItem value={languageConstants.RU}>Русский</MenuItem>
           </Select>
         </FormControl>
         <div className={styles.header__buttons}>
@@ -77,7 +76,8 @@ const Header = () => {
             <>
               <Button
                 variant="text"
-                onClick={() => navigate(RouterConstants.INDEX)}
+                component={Link}
+                to={RouterConstants.INDEX}
               >
                 {t('header.home')}
               </Button>
@@ -90,13 +90,15 @@ const Header = () => {
             <>
               <Button
                 variant="outlined"
-                onClick={() => navigate(RouterConstants.SIGNIN)}
+                component={Link}
+                to={RouterConstants.SIGNIN}
               >
                 {t('signIn.button')}
               </Button>
               <Button
                 variant="contained"
-                onClick={() => navigate(RouterConstants.SIGNUP)}
+                component={Link}
+                to={RouterConstants.SIGNUP}
               >
                 {t('signUp.button')}
               </Button>

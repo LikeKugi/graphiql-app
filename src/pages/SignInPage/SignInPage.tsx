@@ -19,7 +19,7 @@ import * as yup from 'yup';
 import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ISignInFormData } from './interfaces';
+import { ISignInFormData } from './SignInPage.types';
 
 const SignInPage = (): JSX.Element => {
   const { t } = useLanguage();
@@ -41,7 +41,11 @@ const SignInPage = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (error) console.log(error);
+    if (error) {
+      setErrorMessage(error.message);
+    } else {
+      setErrorMessage('');
+    }
   }, [error]);
 
   if (user && !user.isAnonymous) {

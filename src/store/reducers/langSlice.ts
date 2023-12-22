@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { languageConstant } from '@/constants/language/language.constant';
+import { languageConstants } from '@/constants/language';
 
 const initialState = {
-  lang: languageConstant.EN,
+  lang: languageConstants.EN,
 };
 
 const langSlice = createSlice({
   name: 'lang',
   initialState,
   reducers: {
-    setLang(state, action: PayloadAction<languageConstant>) {
+    setLang(state, action: PayloadAction<languageConstants>) {
       state.lang = action.payload;
     },
   },

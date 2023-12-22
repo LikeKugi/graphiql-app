@@ -32,5 +32,8 @@
   "password.veryStrong": "Very strong",
   "docs.description": "A GraphQL schema provides a root type for each kind of operation.",
   "docs.allSchema": "All Schema Types",
-  "docs.error": "Oops, something went wrong. Failed to fetch."
+  "docs.error": "Oops, something went wrong. Failed to fetch.",
+  "playground.variables": "Variables",
+  "playground.headers": "Headers",
+  "playground.actions.url": "URL GraphQL"
 }
