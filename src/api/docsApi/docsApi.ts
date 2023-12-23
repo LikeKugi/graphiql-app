@@ -7,6 +7,8 @@ import {
   IGetTypeRequest,
   ITypeResp,
 } from './docsApi.types';
+import { setErrorMessage } from '@/store/reducers/toastSlice';
+import { IApiError } from '../api.types';
 
 export const docsApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -26,6 +28,14 @@ export const docsApi = api.injectEndpoints({
         (resp as IDocsResp).data.__schema.types.filter(
           (type) => !type.name.includes('__'),
         ),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        dispatch(setErrorMessage(''));
+        try {
+          await queryFulfilled;
+        } catch (e) {
+          dispatch(setErrorMessage((e as IApiError).error.error));
+        }
+      },
     }),
 
     getType: build.query<ITypeResp, IGetTypeRequest>({
@@ -62,6 +72,14 @@ export const docsApi = api.injectEndpoints({
           },
           body,
         };
+      },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        dispatch(setErrorMessage(''));
+        try {
+          await queryFulfilled;
+        } catch (e) {
+          dispatch(setErrorMessage((e as IApiError).error.error));
+        }
       },
     }),
   }),
