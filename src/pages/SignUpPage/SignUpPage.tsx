@@ -21,9 +21,15 @@ import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ISignUpFormData } from './SignUpPage.types';
+import { useAppDispatch } from '@/store';
+import {
+  setErrorMessage as setErrorToast,
+  setSuccessMessage as setSuccessToast,
+} from '@/store/reducers/toastSlice';
 
 const SignUpPage = (): JSX.Element => {
   const { t } = useLanguage();
+  const dispatch = useAppDispatch();
 
   const firstNameRequired = useMemo(() => t('signUp.firstNameRequired'), [t]);
   const lastNameRequired = useMemo(() => t('signUp.lastNameRequired'), [t]);
@@ -59,16 +65,26 @@ const SignUpPage = (): JSX.Element => {
     const { firstName, lastName, email, password } = data;
 
     try {
+      dispatch(setErrorToast(''));
+      dispatch(setSuccessToast(''));
       const name = `${firstName} ${lastName}`;
 
       const { success, error: signUpError } =
         await registerWithEmailAndPassword(name, email, password);
+
       if (!success) {
         console.log(signUpError);
-        setErrorMessage(signUpError);
+        if (signUpError !== 'Missing or insufficient permissions.') {
+          setErrorMessage(signUpError);
+          dispatch(setErrorToast(signUpError));
+        }
+      }
+      if (success || signUpError === 'Missing or insufficient permissions.') {
+        dispatch(setSuccessToast(t('signUp.success')));
       }
     } catch (err) {
       console.log(err);
+      dispatch(setErrorToast(t('signUp.error')));
     }
   }
 

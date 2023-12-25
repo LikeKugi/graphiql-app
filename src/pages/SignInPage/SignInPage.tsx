@@ -20,9 +20,15 @@ import { Stack } from '@mui/material';
 import { RouterConstants } from '@/constants/routes';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ISignInFormData } from './SignInPage.types';
+import {
+  setErrorMessage as setErrorToast,
+  setSuccessMessage as setSuccessToast,
+} from '@/store/reducers/toastSlice';
+import { useAppDispatch } from '@/store';
 
 const SignInPage = (): JSX.Element => {
   const { t } = useLanguage();
+  const dispatch = useAppDispatch();
 
   const emailValidation = useMemo(() => t('signIn.emailValidation'), [t]);
   const emailRequired = useMemo(() => t('signIn.emailRequired'), [t]);
@@ -55,6 +61,8 @@ const SignInPage = (): JSX.Element => {
   async function handleFormSubmit(data: ISignInFormData) {
     const { email, password } = data;
     try {
+      dispatch(setErrorToast(''));
+      dispatch(setSuccessToast(''));
       setErrorMessage('');
 
       const { success, error: loginError } = await logInWithEmailAndPassword(
@@ -64,9 +72,13 @@ const SignInPage = (): JSX.Element => {
 
       if (!success) {
         setErrorMessage(loginError);
+        dispatch(setErrorToast(loginError));
+      } else {
+        dispatch(setSuccessToast(t('signIn.success')));
       }
     } catch (error) {
       setErrorMessage(t('signIn.error'));
+      dispatch(setErrorToast(t('signIn.error')));
     }
   }
 
