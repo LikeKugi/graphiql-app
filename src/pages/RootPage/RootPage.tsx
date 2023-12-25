@@ -7,14 +7,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Alert, Snackbar } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/store';
 import {
+  selectToastMessage,
   setErrorMessage,
   setSuccessMessage,
 } from '@/store/reducers/toastSlice';
 
 const RootPage = (): JSX.Element => {
-  const { errorMessage, successMessage } = useAppSelector(
-    (state) => state.toast,
-  );
+  const { errorMessage, successMessage } = useAppSelector(selectToastMessage);
   const dispatch = useAppDispatch();
 
   const handleClose = (_: React.SyntheticEvent | Event, reason?: string) => {

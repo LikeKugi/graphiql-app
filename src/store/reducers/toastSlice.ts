@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '@/store';
 
 const initialState = {
   errorMessage: '',
@@ -20,3 +21,4 @@ const errorSlice = createSlice({
 
 export default errorSlice.reducer;
 export const { setErrorMessage, setSuccessMessage } = errorSlice.actions;
+export const selectToastMessage = (state: RootState) => state.toast;
