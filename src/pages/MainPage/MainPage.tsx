@@ -1,4 +1,5 @@
 import { JSX, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import PlayGround from '@/components/PlayGround/PlayGround';
 import PlayGroundActions from '@/components/PlayGroundActions/PlayGroundActions';
 import { prettifyJSON } from '@/utils/prettifyJSON';
@@ -14,6 +15,7 @@ import {
 } from '@/store/reducers/requestSlice';
 import { useGetGraphQLRequestMutation } from '@/api/graphApi/graphApi';
 import { selectJSON, setJson } from '@/store/reducers/responseSlice';
+import Fallback from '@/components/ErrorBoundaryFallback/Fallback';
 
 const MainPage = (): JSX.Element => {
   const { url: initialURL } = useAppSelector(selectAddress);
@@ -79,22 +81,26 @@ const MainPage = (): JSX.Element => {
 
   return (
     <div>
-      <PlayGroundActions
-        handleSubmit={handleSubmit}
-        handlePrettify={handlePrettify}
-        urlAddress={urlAddress}
-        setUrlAddress={setUrlAddress}
-      />
-      <PlayGround
-        headersRequest={headersRequest}
-        graphRequest={graphRequest}
-        variablesRequest={variablesRequest}
-        jsonResponse={jsonResponse}
-        setGraphRequest={setGraphRequest}
-        setHeadersRequest={setHeadersRequest}
-        setVariablesRequest={setVariablesRequest}
-        saveHeadersRequest={saveHeadersRequest}
-      />
+      <ErrorBoundary fallbackRender={Fallback}>
+        <PlayGroundActions
+          handleSubmit={handleSubmit}
+          handlePrettify={handlePrettify}
+          urlAddress={urlAddress}
+          setUrlAddress={setUrlAddress}
+        />
+      </ErrorBoundary>
+      <ErrorBoundary fallbackRender={Fallback}>
+        <PlayGround
+          headersRequest={headersRequest}
+          graphRequest={graphRequest}
+          variablesRequest={variablesRequest}
+          jsonResponse={jsonResponse}
+          setGraphRequest={setGraphRequest}
+          setHeadersRequest={setHeadersRequest}
+          setVariablesRequest={setVariablesRequest}
+          saveHeadersRequest={saveHeadersRequest}
+        />
+      </ErrorBoundary>
     </div>
   );
 };

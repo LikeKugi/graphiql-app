@@ -14,19 +14,37 @@ import SignUpPage from '@/pages/SignUpPage/SignUpPage';
 import PrivateRoutes from '@/routes/PrivateRoutes/PrivateRoutes';
 import MainPage from '@/pages/MainPage/MainPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import Fallback from '@/components/ErrorBoundaryFallback/Fallback';
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route path={RouterConstants.INDEX} element={<RootPage />}>
       <Route index element={<WelcomePage />} />
       <Route element={<PublicRoutes />}>
-        <Route path={RouterConstants.SIGNIN} element={<SignInPage />} />
-        <Route path={RouterConstants.SIGNUP} element={<SignUpPage />} />
+        <Route
+          path={RouterConstants.SIGNIN}
+          errorElement={<Fallback routeMessage="/signin" />}
+          element={<SignInPage />}
+        />
+        <Route
+          path={RouterConstants.SIGNUP}
+          errorElement={<Fallback routeMessage="/signup" />}
+          element={<SignUpPage />}
+        />
       </Route>
       <Route element={<PrivateRoutes />}>
-        <Route path={RouterConstants.MAIN} element={<MainPage />} />
+        <Route
+          path={RouterConstants.MAIN}
+          errorElement={<Fallback routeMessage="/main" />}
+          element={<MainPage />}
+        />
       </Route>
-      <Route path="*" element={<NotFoundPage />} />,
+      <Route
+        path="*"
+        errorElement={<Fallback routeMessage="404" />}
+        element={<NotFoundPage />}
+      />
+      ,
     </Route>,
   ),
 );
