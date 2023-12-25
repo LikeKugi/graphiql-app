@@ -10,7 +10,15 @@ const PlayGroundResizer: FC<IPlayGroundResizerProps> = ({
   return (
     <PanelResizeHandle>
       <Divider orientation={orientation}>
-        <Chip label={label} variant="outlined" />
+        <Chip
+          label={label}
+          variant="outlined"
+          sx={{
+            '& .MuiChip-label': {
+              display: 'flex',
+            },
+          }}
+        />
       </Divider>
     </PanelResizeHandle>
   );

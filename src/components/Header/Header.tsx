@@ -48,11 +48,11 @@ const Header = () => {
   return (
     <AppBar
       className={styles.header}
-      color={isSticky ? 'primary' : 'transparent'}
       position={'sticky'}
       sx={{
         paddingBlock: `${isSticky ? '5px' : '15px'}`,
         transition: 'all 0.4s ease-in-out',
+        backgroundColor: `${isSticky ? '#e3f2fd' : 'white'}`,
       }}
     >
       <Toolbar className={styles.header__wrapper}>
