@@ -103,7 +103,7 @@ const SignUpPage = (): JSX.Element => {
       {!loading && !error && (
         <>
           <Stack pt={4} spacing={2} alignItems={'center'}>
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">

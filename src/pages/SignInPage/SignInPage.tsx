@@ -88,7 +88,7 @@ const SignInPage = (): JSX.Element => {
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       {!loading && !error && (
         <Stack alignItems={'center'} pt={4} spacing={2}>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
