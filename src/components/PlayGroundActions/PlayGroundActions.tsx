@@ -20,9 +20,6 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   const dispatch = useAppDispatch();
   const { t } = useLanguage();
 
-  const random = Math.random();
-  if (random > 0.5) throw new Error('hello');
-
   const onDocsClick = () => {
     dispatch(setIsDocsShown(!isDocsShown));
   };

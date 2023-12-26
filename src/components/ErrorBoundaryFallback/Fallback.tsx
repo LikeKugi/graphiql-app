@@ -4,12 +4,7 @@ import styles from './Fallback.module.scss';
 import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { RouterConstants } from '@/constants/routes';
-
-interface IFallbackProps {
-  error?: Error;
-  resetErrorBoundary?: () => void;
-  routeMessage?: string;
-}
+import { IFallbackProps } from './Fallback.types';
 
 const Fallback = ({
   error,
