@@ -97,7 +97,7 @@ const PlayGround: FC<IPlayGroundProps> = ({
               collapsible
             >
               {currentTab === 0 && (
-                <Stack p={1} flexGrow={1}>
+                <Stack p={0.5} flexGrow={1}>
                   <CodeMirror
                     className={styles.PlayGround__CodeMirror}
                     value={variablesRequest}
