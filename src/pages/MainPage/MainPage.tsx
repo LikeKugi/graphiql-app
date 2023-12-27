@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import { ChangeEvent, JSX, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import PlayGround from '@/components/PlayGround/PlayGround';
 import PlayGroundActions from '@/components/PlayGroundActions/PlayGroundActions';
@@ -16,6 +16,8 @@ import {
 import { useGetGraphQLRequestMutation } from '@/api/graphApi/graphApi';
 import { selectJSON, setJson } from '@/store/reducers/responseSlice';
 import Fallback from '@/components/ErrorBoundaryFallback/Fallback';
+import { selectIsDocsShown, setIsDocsShown } from '@/store/reducers/docsSlice';
+import { setSuccessMessage } from '@/store/reducers/toastSlice';
 
 const MainPage = (): JSX.Element => {
   const { url: initialURL } = useAppSelector(selectAddress);
@@ -23,6 +25,7 @@ const MainPage = (): JSX.Element => {
   const initialVariables = useAppSelector(selectVariables);
   const initialHeaders = useAppSelector(selectHeaders);
   const jsonResponse = useAppSelector(selectJSON);
+  const isDocsShown = useAppSelector(selectIsDocsShown);
 
   const [graphRequest, setGraphRequest] = useState(initialGraphQL);
   const [variablesRequest, setVariablesRequest] = useState(initialVariables);
@@ -33,15 +36,25 @@ const MainPage = (): JSX.Element => {
 
   const [fetchGraphQL] = useGetGraphQLRequestMutation();
 
+  const onDocsClick = () => {
+    dispatch(setIsDocsShown(!isDocsShown));
+  };
+
   const saveHeadersRequest = () => {
     dispatch(setHeaders(headersRequest));
+  };
+  const saveUrlRequest = () => {
+    dispatch(setAddress(urlAddress));
+    dispatch(setSuccessMessage(urlAddress));
+  };
+  const changeUrlAddress = (e: ChangeEvent<HTMLInputElement>) => {
+    setUrlAddress(e.target.value);
   };
 
   const handleSubmit = async () => {
     saveHeadersRequest();
     dispatch(setGraphQL(graphRequest));
     dispatch(setVariables(variablesRequest));
-    dispatch(setAddress(urlAddress));
     if (!urlAddress) return;
     const bodyObject: Record<string, string | object> = {};
     if (graphRequest) {
@@ -86,7 +99,9 @@ const MainPage = (): JSX.Element => {
           handleSubmit={handleSubmit}
           handlePrettify={handlePrettify}
           urlAddress={urlAddress}
-          setUrlAddress={setUrlAddress}
+          setUrlAddress={changeUrlAddress}
+          onDocsClick={onDocsClick}
+          saveUrlRequest={saveUrlRequest}
         />
       </ErrorBoundary>
       <ErrorBoundary fallbackRender={Fallback}>

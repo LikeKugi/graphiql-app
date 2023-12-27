@@ -1,27 +1,37 @@
-import { FC, JSX, useId } from 'react';
-import { Button, Container, TextField } from '@mui/material';
+import { FC, JSX, useId, useState } from 'react';
+import {
+  Button,
+  Container,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from '@mui/material';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Grid from '@mui/material/Grid';
 import { IPlayGroundActionsProps } from './PlayGroundActions.types';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { useAppDispatch, useAppSelector } from '@/store';
-import { selectIsDocsShown, setIsDocsShown } from '@/store/reducers/docsSlice';
 import { useLanguage } from '@/contexts/LanguageContext';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 
 const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
   handleSubmit,
   handlePrettify,
   urlAddress,
   setUrlAddress,
+  onDocsClick,
+  saveUrlRequest,
 }): JSX.Element => {
   const inputId = useId();
-  const isDocsShown = useAppSelector(selectIsDocsShown);
-  const dispatch = useAppDispatch();
   const { t } = useLanguage();
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  const onDocsClick = () => {
-    dispatch(setIsDocsShown(!isDocsShown));
+  const editUrlBtnHandler = () => {
+    if (!isDisabled) {
+      saveUrlRequest();
+    }
+    setIsDisabled((prevState) => !prevState);
   };
 
   return (
@@ -44,12 +54,22 @@ const PlayGroundActions: FC<IPlayGroundActionsProps> = ({
         </Grid>
         <Grid item xs={12} md={9}>
           <TextField
+            disabled={isDisabled}
             required
             id={inputId}
             label={t('playground.actions.url')}
             fullWidth
             value={urlAddress}
-            onChange={(e) => setUrlAddress(e.target.value)}
+            onChange={setUrlAddress}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position={'end'}>
+                  <IconButton onClick={editUrlBtnHandler}>
+                    {isDisabled ? <EditIcon /> : <SaveIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
       </Grid>
