@@ -8,7 +8,7 @@ const PublicRoutes = (): JSX.Element => {
   const [user] = useAuthState(auth);
 
   if (user && !user.isAnonymous) {
-    return <Navigate to={RouterConstants.INDEX} />;
+    return <Navigate to={RouterConstants.MAIN} />;
   }
 
   return <Outlet />;
