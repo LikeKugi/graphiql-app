@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app';
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 import {
   getAuth,
@@ -10,7 +9,6 @@ import {
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -20,7 +18,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -31,10 +28,8 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     return { success: true, userID: response?.user?.uid, error: '' };
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.error(err);
       return { success: false, error: err.message };
     } else {
-      console.error(err);
       return { success: false, error: 'An unknown error occurred' };
     }
   }
@@ -57,10 +52,8 @@ const registerWithEmailAndPassword = async (
     return { success: true, error: '' };
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.error(err);
       return { success: false, error: err.message };
     } else {
-      console.error(err);
       return { success: false, error: 'An unknown error occurred' };
     }
   }

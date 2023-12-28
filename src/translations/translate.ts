@@ -16,7 +16,6 @@ export default function translate(
   if (typeof plural !== 'undefined') {
     const key = new Intl.PluralRules(lang).select(plural);
 
-    // Ensure key is a valid index and result is an object
     if (typeof key === 'string' && typeof result === 'object') {
       result = result[key];
     }
