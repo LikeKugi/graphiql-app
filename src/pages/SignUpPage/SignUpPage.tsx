@@ -73,7 +73,6 @@ const SignUpPage = (): JSX.Element => {
         await registerWithEmailAndPassword(name, email, password);
 
       if (!success) {
-        console.log(signUpError);
         if (signUpError !== 'Missing or insufficient permissions.') {
           setErrorMessage(signUpError);
           dispatch(setErrorToast(signUpError));
@@ -83,17 +82,18 @@ const SignUpPage = (): JSX.Element => {
         dispatch(setSuccessToast(t('signUp.success')));
       }
     } catch (err) {
-      console.log(err);
       dispatch(setErrorToast(t('signUp.error')));
     }
   }
 
   useEffect(() => {
-    if (error) console.log(error);
-  }, [error]);
+    if (error) {
+      dispatch(setErrorToast(error.message));
+    }
+  }, [dispatch, error]);
 
   if (user && !user.isAnonymous) {
-    return <Navigate to={RouterConstants.INDEX} />;
+    return <Navigate to={RouterConstants.MAIN} />;
   }
 
   return (
@@ -233,7 +233,7 @@ const SignUpPage = (): JSX.Element => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Link to="/signin">{t('signIn.button')}</Link>
+                  <Link to={RouterConstants.SIGNIN}>{t('signIn.button')}</Link>
                 </Grid>
               </Grid>
             </Box>

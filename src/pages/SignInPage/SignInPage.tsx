@@ -55,7 +55,7 @@ const SignInPage = (): JSX.Element => {
   }, [error]);
 
   if (user && !user.isAnonymous) {
-    return <Navigate to={RouterConstants.INDEX} />;
+    return <Navigate to={RouterConstants.MAIN} />;
   }
 
   async function handleFormSubmit(data: ISignInFormData) {
@@ -164,7 +164,7 @@ const SignInPage = (): JSX.Element => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Link to="/signup">{t('signUp.title')}</Link>
+                <Link to={RouterConstants.SIGNUP}>{t('signUp.title')}</Link>
               </Grid>
             </Grid>
           </Box>
