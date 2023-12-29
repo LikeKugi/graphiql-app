@@ -19,7 +19,6 @@ export function useLogout() {
         const timeToExpire = expirationTime - now;
 
         if (timeToExpire < 0) {
-          // Automatically logout and redirect user
           logout();
           navigate(`${RouterConstants.INDEX}`);
         }
