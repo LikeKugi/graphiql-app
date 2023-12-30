@@ -18,6 +18,7 @@ import { selectJSON, setJson } from '@/store/reducers/responseSlice';
 import Fallback from '@/components/ErrorBoundaryFallback/Fallback';
 import { selectIsDocsShown, setIsDocsShown } from '@/store/reducers/docsSlice';
 import { setSuccessMessage } from '@/store/reducers/toastSlice';
+import { format } from '@/utils/prettifyGraphQL';
 
 const MainPage = (): JSX.Element => {
   const { url: initialURL } = useAppSelector(selectAddress);
@@ -89,6 +90,9 @@ const MainPage = (): JSX.Element => {
     }
     if (jsonResponse) {
       dispatch(setJson(prettifyJSON(jsonResponse)));
+    }
+    if (graphRequest) {
+      setGraphRequest(format(graphRequest));
     }
   };
 
