@@ -39,7 +39,7 @@ const Docs = () => {
   const prevType = queryTypes[queryTypes.length - 2];
 
   return (
-    <Box className={styles.docs}>
+    <Box className={styles.docs} data-testid="docs">
       {!!queryTypes.length && (
         <Button
           variant="outlined"

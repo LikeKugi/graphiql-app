@@ -18,6 +18,7 @@ const PlayGroundResizer: FC<IPlayGroundResizerProps> = ({
               display: 'flex',
             },
           }}
+          data-testid="PlaygroundResizer"
         />
       </Divider>
     </PanelResizeHandle>
