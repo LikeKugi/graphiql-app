@@ -2,7 +2,6 @@ import { describe } from 'vitest';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import WelcomePage from '@/pages/WelcomePage/WelcomePage';
 import { MemoryRouter } from 'react-router-dom';
-import { languageConstants } from '@/constants/language/language.constants';
 import { screen } from '@testing-library/react';
 import { LanguageProvider } from '@/contexts/LanguageContext/LanguageContext';
 
@@ -14,9 +13,6 @@ describe('test WelcomePage', () => {
           <WelcomePage />
         </LanguageProvider>
       </MemoryRouter>,
-      {
-        preloadedState: { lang: { lang: languageConstants.EN } },
-      },
     );
 
     expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
@@ -31,9 +27,6 @@ describe('test WelcomePage', () => {
           <WelcomePage />
         </LanguageProvider>
       </MemoryRouter>,
-      {
-        preloadedState: { lang: { lang: languageConstants.RU } },
-      },
     );
 
     expect(screen.getByText(/Авторизоваться$/i)).toBeInTheDocument();

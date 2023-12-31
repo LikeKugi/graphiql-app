@@ -27,6 +27,8 @@
   "welcome.linkSignIn": "Sign in",
   "welcome.linkSignUp": "Sign up",
   "welcome.linkMain": "Main",
+  "welcome.rsSchool": "The RS School is working by the principle of \"Pay it forward.\" Members of our community share their knowledge and check students' tasks for free. And we hope our students will continue this work as our mentors in the future.",
+  "welcome.graphQL": "GraphQL is a query language for your API, and a server-side runtime for executing queries using a type system you define for your data. GraphQL isn't tied to any specific database or storage engine and is instead backed by your existing code and data.",
   "notFound.title": "Something went wrong... Error 404. Page not found.",
   "password.default": "Password strength",
   "password.veryWeak": "Very weak",
@@ -38,5 +40,20 @@
   "docs.error": "Oops, something went wrong. Failed to fetch.",
   "playground.variables": "Variables",
   "playground.headers": "Headers",
-  "playground.actions.url": "URL GraphQL"
+  "playground.actions.url": "URL GraphQL",
+
+  "developer.oleg.alt": "Oleg",
+  "developer.oleg.name": "Oleg",
+  "developer.oleg.hrefDescription": "5kazo4nik",
+  "developer.oleg.workDescription": "Oleg created Docs section. Creator of header and footer. Maintainer of tests",
+
+  "developer.andrii.alt": "Andrii",
+  "developer.andrii.name": "Andrii",
+  "developer.andrii.hrefDescription": "iudchenko",
+  "developer.andrii.workDescription": "Andrii created firebase authentication. Creator of localization",
+
+  "developer.elijah.alt": "Elijah",
+  "developer.elijah.name": "Elijah",
+  "developer.elijah.hrefDescription": "LikeKugi",
+  "developer.elijah.workDescription": "Elijah created playground, Creator of welcome page, Maintainer of tests"
 }

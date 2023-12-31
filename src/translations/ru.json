@@ -27,6 +27,8 @@
   "welcome.linkSignIn": "Авторизоваться",
   "welcome.linkSignUp": "Зарегистрироваться",
   "welcome.linkMain": "На главную",
+  "welcome.rsSchool": "В RS School работает принцип \"Pay it forward\". Мы бесплатно делимся с учащимися своими знаниями сейчас, надеясь, что в будущем они вернутся к нам в качестве менторов и точно так же передадут свои знания следующему поколению студентов.",
+  "welcome.graphQL": "GraphQL — это язык запросов для API-интерфейсов и среда, в которой они выполняются. С помощью GraphQL можно получить данные из API и передать их в приложение (от сервера к клиенту).GraphQL — это язык запросов для API-интерфейсов и среда, в которой они выполняются. С помощью GraphQL можно получить данные из API и передать их в приложение (от сервера к клиенту).",
   "notFound.title": "Что-то пошло не так... Ошибка 404. Страница не найдена.",
   "password.default": "Надежность пароля",
   "password.veryWeak": "Очень слабый",
@@ -38,5 +40,20 @@
   "docs.error": "Что-то пошло не так. Ошибка во время загрузки.",
   "playground.variables": "Переменные",
   "playground.headers": "Заголовки",
-  "playground.actions.url": "URL адрес GraphQL"
+  "playground.actions.url": "URL адрес GraphQL",
+
+  "developer.oleg.alt": "Oleg",
+  "developer.oleg.name": "Oleg",
+  "developer.oleg.hrefDescription": "5kazo4nik",
+  "developer.oleg.workDescription": "Реализовал секцию Доки, сделал хэдер, футер, работал с тестами",
+
+  "developer.andrii.alt": "Andrii",
+  "developer.andrii.name": "Andrii",
+  "developer.andrii.hrefDescription": "iudchenko",
+  "developer.andrii.workDescription": "Реализовал интеграцию с firebase и авторизацию, сделал локализацию",
+
+  "developer.elijah.alt": "Elijah",
+  "developer.elijah.name": "Elijah",
+  "developer.elijah.hrefDescription": "LikeKugi",
+  "developer.elijah.workDescription": "Реализовал плэйграунд, сделал страницу приветствия, работал с тестами"
 }
