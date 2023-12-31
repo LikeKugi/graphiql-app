@@ -42,18 +42,18 @@
   "playground.headers": "Заголовки",
   "playground.actions.url": "URL адрес GraphQL",
 
-  "developer.oleg.alt": "Oleg",
-  "developer.oleg.name": "Oleg",
+  "developer.oleg.alt": "Олег",
+  "developer.oleg.name": "Олег",
   "developer.oleg.hrefDescription": "5kazo4nik",
   "developer.oleg.workDescription": "Реализовал секцию Доки, сделал хэдер, футер, работал с тестами",
 
-  "developer.andrii.alt": "Andrii",
-  "developer.andrii.name": "Andrii",
+  "developer.andrii.alt": "Андрей",
+  "developer.andrii.name": "Андрей",
   "developer.andrii.hrefDescription": "iudchenko",
   "developer.andrii.workDescription": "Реализовал интеграцию с firebase и авторизацию, сделал локализацию",
 
-  "developer.elijah.alt": "Elijah",
-  "developer.elijah.name": "Elijah",
+  "developer.elijah.alt": "Илья",
+  "developer.elijah.name": "Илья",
   "developer.elijah.hrefDescription": "LikeKugi",
   "developer.elijah.workDescription": "Реализовал плэйграунд, сделал страницу приветствия, работал с тестами"
 }
