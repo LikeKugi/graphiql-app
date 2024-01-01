@@ -11,8 +11,8 @@
 ## Backend / API
 
 - Application doesn't require a backend.
-- Application support any open, user-specified GraphQL API that supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). 
-- 
+- Application support any open, user-specified GraphQL API that supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
 ## Application structure
 
 1. Welcome page
@@ -58,7 +58,6 @@ npm i
 ```shell
 npm run dev
 ```
-
 
 ## Cross-check criteria
 
