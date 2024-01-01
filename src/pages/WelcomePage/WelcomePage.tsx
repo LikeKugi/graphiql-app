@@ -49,7 +49,7 @@ const WelcomePage = (): JSX.Element => {
       src: img_elijah,
       alt: t('developer.elijah.alt'),
       name: t('developer.elijah.name'),
-      href: 'hhttps://github.com/LikeKugi',
+      href: 'https://github.com/LikeKugi',
       hrefDescription: t('developer.elijah.hrefDescription'),
       workDescription: t('developer.elijah.workDescription'),
     },
