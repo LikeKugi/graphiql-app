@@ -93,6 +93,7 @@ const WelcomePage = (): JSX.Element => {
           </Box>
           {heroData.map((data, idx) => (
             <Hero
+              key={data.src}
               src={data.src}
               alt={data.alt}
               text={data.text}
@@ -103,7 +104,7 @@ const WelcomePage = (): JSX.Element => {
             <Typography variant="h2">Our Team</Typography>
             <Grid container>
               {developersData.map((developer) => (
-                <Grid item xs={12} md={4} p={1}>
+                <Grid item xs={12} md={4} p={1} key={developer.src}>
                   <DeveloperCard
                     src={developer.src}
                     alt={developer.alt}

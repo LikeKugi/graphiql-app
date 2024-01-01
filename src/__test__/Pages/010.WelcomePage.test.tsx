@@ -1,26 +1,23 @@
-import { describe } from 'vitest';
+import { afterEach, describe, expect } from 'vitest';
 import { renderWithProviders } from '../redux/renderWithProviders';
 import WelcomePage from '@/pages/WelcomePage/WelcomePage';
 import { MemoryRouter } from 'react-router-dom';
-import { screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import { LanguageProvider } from '@/contexts/LanguageContext/LanguageContext';
+import * as Firebase from 'react-firebase-hooks/auth';
+import { User } from '@/__test__/types/User.types';
 
 describe('test WelcomePage', () => {
-  test.skip('should render correct data in english', () => {
-    renderWithProviders(
-      <MemoryRouter>
-        <LanguageProvider>
-          <WelcomePage />
-        </LanguageProvider>
-      </MemoryRouter>,
-    );
+  const authSpy = vi.spyOn(Firebase, 'useAuthState');
 
-    expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
-    expect(screen.getByText(/Sign up/i)).toBeInTheDocument();
-    expect(screen.getByText(/Log in or register/)).toBeInTheDocument();
+  afterEach(() => {
+    cleanup();
+    authSpy.mockClear();
   });
 
-  test.skip('should render correct data in russian', () => {
+  test('should render correct data for unauthorized user', () => {
+    authSpy.mockReturnValue([null, false, {} as unknown as Error]);
+
     renderWithProviders(
       <MemoryRouter>
         <LanguageProvider>
@@ -29,10 +26,30 @@ describe('test WelcomePage', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText(/Авторизоваться$/i)).toBeInTheDocument();
-    expect(screen.getByText(/Зарегистрироваться$/i)).toBeInTheDocument();
-    expect(
-      screen.getByText(/Авторизуйтесь или зарегистрируйтесь/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/register/i)).toBeInTheDocument();
+    expect(screen.getByText(/language/i)).toBeInTheDocument();
+    expect(screen.getByText(/Members/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Oleg/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Andrii/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Elijah/i)).toHaveLength(2);
+    expect(screen.getAllByRole('img')).toHaveLength(5);
+  });
+
+  it('should render correct data for authorized user', function () {
+    authSpy.mockReturnValue([
+      {} as unknown as User,
+      false,
+      {} as unknown as Error,
+    ]);
+
+    renderWithProviders(
+      <MemoryRouter>
+        <LanguageProvider>
+          <WelcomePage />
+        </LanguageProvider>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText(/main\spage/i)).toBeInTheDocument();
   });
 });
