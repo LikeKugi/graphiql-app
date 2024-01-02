@@ -2,6 +2,7 @@
   "name": "rs-graphiql",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://likekugi.github.io/graphiql-app/",
   "type": "module",
   "scripts": {
     "dev": "vite",

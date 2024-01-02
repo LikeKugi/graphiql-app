@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import {
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -16,7 +16,7 @@ import MainPage from '@/pages/MainPage/MainPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import Fallback from '@/components/ErrorBoundaryFallback/Fallback';
 
-const routes = createBrowserRouter(
+const routes = createHashRouter(
   createRoutesFromElements(
     <Route path={RouterConstants.INDEX} element={<RootPage />}>
       <Route index element={<WelcomePage />} />
