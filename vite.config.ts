@@ -8,6 +8,7 @@ import { coverageConfigDefaults } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/graphiql-app/',
   plugins: [react()],
   resolve: {
     alias: [
