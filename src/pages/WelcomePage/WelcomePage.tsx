@@ -101,7 +101,9 @@ const WelcomePage = (): JSX.Element => {
             />
           ))}
           <Stack spacing={1} justifyContent={'center'} alignItems={'center'}>
-            <Typography variant="h2">Our Team</Typography>
+            <Typography variant="h2" textAlign="center">
+              {t('welcome.headTeam')}
+            </Typography>
             <Grid container>
               {developersData.map((developer) => (
                 <Grid item xs={12} md={4} p={1} key={developer.src}>
