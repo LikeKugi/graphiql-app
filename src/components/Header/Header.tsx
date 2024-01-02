@@ -72,16 +72,11 @@ const Header = () => {
           </Select>
         </FormControl>
         <div className={styles.header__buttons}>
+          <Button variant="text" component={Link} to={RouterConstants.INDEX}>
+            {t('header.home')}
+          </Button>
           {isAuth ? (
             <>
-              <Button
-                variant="text"
-                component={Link}
-                to={RouterConstants.INDEX}
-              >
-                {t('header.home')}
-              </Button>
-
               <Button variant="outlined" onClick={() => logout()}>
                 {t('header.signOut')}
               </Button>
