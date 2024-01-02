@@ -6,7 +6,7 @@ import { ghList } from './gh-list';
 
 const Footer = () => {
   return (
-    <Box component={'footer'} className={styles.footer}>
+    <Box component={'footer'} className={styles.footer} py={5}>
       <Box className={styles.footer__wrapper}>
         <Grid
           container

@@ -2,6 +2,7 @@
   "header.home": "Home",
   "header.switchLabel": "Language",
   "header.signOut": "Sign Out",
+
   "signIn.title": "Sign In",
   "signIn.email": "Email address",
   "signIn.emailValidation": "Invalid email address",
@@ -12,6 +13,7 @@
   "signIn.success": "Authorization was completed successfully",
   "signIn.button": "Sign In",
   "signIn.dontHaveAccount": "Don't have an account?",
+
   "signUp.title": "Sign Up",
   "signUp.firstName": "First name",
   "signUp.lastName": "Last name",
@@ -22,6 +24,7 @@
   "signUp.haveAccount": "Already have an account?",
   "signUp.error": "Error during registration",
   "signUp.success": "Registration was successful",
+
   "welcome.headAuth": "Please go to the main page to use the app",
   "welcome.headNotAuth": "Log in or register to use the app",
   "welcome.linkSignIn": "Sign in",
@@ -29,15 +32,20 @@
   "welcome.linkMain": "Main",
   "welcome.rsSchool": "The RS School is working by the principle of \"Pay it forward.\" Members of our community share their knowledge and check students' tasks for free. And we hope our students will continue this work as our mentors in the future.",
   "welcome.graphQL": "GraphQL is a query language for your API, and a server-side runtime for executing queries using a type system you define for your data. GraphQL isn't tied to any specific database or storage engine and is instead backed by your existing code and data.",
+
   "notFound.title": "Something went wrong... Error 404. Page not found.",
+  "notFound.link": "Back to main page",
+
   "password.default": "Password strength",
   "password.veryWeak": "Very weak",
   "password.weak": "Weak",
   "password.strong": "Strong",
   "password.veryStrong": "Very strong",
+
   "docs.description": "A GraphQL schema provides a root type for each kind of operation.",
   "docs.allSchema": "All Schema Types",
   "docs.error": "Oops, something went wrong. Failed to fetch.",
+
   "playground.variables": "Variables",
   "playground.headers": "Headers",
   "playground.actions.url": "URL GraphQL",
