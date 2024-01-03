@@ -27,6 +27,7 @@
 
   "welcome.headAuth": "Please go to the main page to use the app",
   "welcome.headNotAuth": "Log in or register to use the app",
+  "welcome.headTeam": "Our Team",
   "welcome.linkSignIn": "Sign in",
   "welcome.linkSignUp": "Sign up",
   "welcome.linkMain": "Main",
