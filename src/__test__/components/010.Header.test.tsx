@@ -83,7 +83,7 @@ describe('test Header component', () => {
     });
 
     expect(await screen.findByText(/Русский/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Главная/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Домой/i)).toBeInTheDocument();
     expect(await screen.findByText(/Выйти/i)).toBeInTheDocument();
   });
 });
