@@ -1,0 +1,20 @@
+.footer {
+  inline-size: 100%;
+  padding-block-start: 5px;
+
+  background-color: #bbdefb;
+}
+
+.footer__wrapper {
+  padding-inline: 10px;
+}
+
+.footer__links {
+  display: flex;
+  column-gap: 15px;
+}
+
+.footer__link {
+  font-size: 22px;
+  font-family: 'Roboto', sans-serif;
+}

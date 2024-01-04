@@ -1,0 +1,22 @@
+.header {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 530px) {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @media screen and (max-width: 380px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}

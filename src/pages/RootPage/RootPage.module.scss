@@ -1,0 +1,9 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  &__content {
+    padding-block: 1.5rem;
+    flex-grow: 1;
+  }
+}
