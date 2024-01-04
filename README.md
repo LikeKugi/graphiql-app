@@ -31,7 +31,11 @@
 
 ### Deploy
 
+[Link](https://likekugi.github.io/graphiql-app/#/)
+
 ### Video
+
+[YouTube](https://youtu.be/gK7SvWwQNiY)
 
 ### Run project
 
