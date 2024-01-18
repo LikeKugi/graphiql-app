@@ -33,6 +33,11 @@
 
 [Link](https://likekugi.github.io/graphiql-app/#/)
 
+### Test User Account
+
+- Login: test.user@mail.com
+- Password: !234Qwer
+
 ### Video
 
 [YouTube](https://youtu.be/gK7SvWwQNiY)
