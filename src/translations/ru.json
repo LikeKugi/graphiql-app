@@ -1,0 +1,68 @@
+{
+  "header.home": "Домой",
+  "header.switchLabel": "Язык",
+  "header.signOut": "Выйти",
+
+  "signIn.title": "Войти",
+  "signIn.email": "Адрес электронной почты",
+  "signIn.emailValidation": "Неверный адрес электронной почты",
+  "signIn.emailRequired": "Адрес электронной почты обязательно",
+  "signIn.password": "Пароль",
+  "signIn.passwordRequired": "Пароль обязательно",
+  "signIn.error": "Произошла ошибка. Пожалуйста, попробуйте еще раз.",
+  "signIn.success": "Авторизация пройдена успешно",
+  "signIn.button": "Войти",
+  "signIn.dontHaveAccount": "У вас нет учетной записи?",
+
+  "signUp.title": "Зарегистрироваться",
+  "signUp.firstName": "Имя",
+  "signUp.lastName": "Фамилия",
+  "signUp.firstNameRequired": "Имя обязательно",
+  "signUp.lastNameRequired": "Фамилия обязательна",
+  "signUp.button": "Зарегистрироваться",
+  "signUp.passwordNote": "Пароль должен состоять не менее чем из 8 символов и включать одну букву, одну цифру и один специальный символ.",
+  "signUp.haveAccount": "У вас уже есть аккаунт?",
+  "signUp.error": "Ошибка при регистрации",
+  "signUp.success": "Регистрация прошла успешно",
+
+  "welcome.headAuth": "Пожалуйста перейдите на главную страницу для использования приложения",
+  "welcome.headNotAuth": "Авторизуйтесь или зарегистрируйтесь для использования приложения",
+  "welcome.headTeam": "Наша Команда",
+  "welcome.linkSignIn": "Авторизоваться",
+  "welcome.linkSignUp": "Зарегистрироваться",
+  "welcome.linkMain": "На главную",
+  "welcome.rsSchool": "В RS School работает принцип \"Pay it forward\". Мы бесплатно делимся с учащимися своими знаниями сейчас, надеясь, что в будущем они вернутся к нам в качестве менторов и точно так же передадут свои знания следующему поколению студентов.",
+  "welcome.graphQL": "GraphQL — это язык запросов для API-интерфейсов и среда, в которой они выполняются. С помощью GraphQL можно получить данные из API и передать их в приложение (от сервера к клиенту).GraphQL — это язык запросов для API-интерфейсов и среда, в которой они выполняются. С помощью GraphQL можно получить данные из API и передать их в приложение (от сервера к клиенту).",
+
+  "notFound.title": "Что-то пошло не так... Ошибка 404. Страница не найдена.",
+  "notFound.link": "На главную",
+
+  "password.default": "Надежность пароля",
+  "password.veryWeak": "Очень слабый",
+  "password.weak": "Слабый",
+  "password.strong": "Сильный",
+  "password.veryStrong": "Очень сильный",
+
+  "docs.description": "Графическая схема предоставляет корневой тип для каждого вида операций.",
+  "docs.allSchema": "Все типы схем",
+  "docs.error": "Что-то пошло не так. Ошибка во время загрузки.",
+
+  "playground.variables": "Переменные",
+  "playground.headers": "Заголовки",
+  "playground.actions.url": "URL адрес GraphQL",
+
+  "developer.oleg.alt": "Олег",
+  "developer.oleg.name": "Олег",
+  "developer.oleg.hrefDescription": "5kazo4nik",
+  "developer.oleg.workDescription": "Реализовал секцию Доки, сделал хэдер, футер, работал с тестами",
+
+  "developer.andrii.alt": "Андрей",
+  "developer.andrii.name": "Андрей",
+  "developer.andrii.hrefDescription": "iudchenko",
+  "developer.andrii.workDescription": "Реализовал интеграцию с firebase и авторизацию, сделал локализацию",
+
+  "developer.elijah.alt": "Илья",
+  "developer.elijah.name": "Илья",
+  "developer.elijah.hrefDescription": "LikeKugi",
+  "developer.elijah.workDescription": "Реализовал плэйграунд, сделал страницу приветствия, работал с тестами"
+}
